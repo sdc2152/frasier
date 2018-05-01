@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    "questions.apps.QuestionsConfig",
+
     "webpack_loader",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
