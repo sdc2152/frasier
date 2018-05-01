@@ -9,7 +9,3 @@ class QuestionSerializer(serializers.ModelSerializer):
             "id", "created", "last_modified", "category", "body", "answer",
             "false_answers", "true_answers"
         )
-
-    def create(self, validated_data):
-        print(validated_data)
-        return Question.object.create(**validated_data)

@@ -8,7 +8,7 @@ class QuestionManager(models.Manager):
         """
         kwargs["false_answers"] = 0
         kwargs["true_answers"] = 0
-        return super(**kwargs)
+        return super().create(**kwargs)
 
 
 class Question(models.Model):
