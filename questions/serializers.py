@@ -3,6 +3,8 @@ from questions.models import Question
 
 
 class QuestionSerializer(serializers.ModelSerializer):
+    category = serializers.CharField(source="get_category_display")
+
     class Meta:
         model = Question
         fields = (

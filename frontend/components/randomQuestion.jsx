@@ -1,5 +1,6 @@
 import React from "react";
 import QuestionContainer from "./question/questionContainer";
+import SettingsContainer from "./settings/settingsContainer";
 import {
   Col,
   Row,
@@ -11,7 +12,7 @@ const randomQuestion = () => {
     <Container>
       <Row>
         <Col>
-          This is the settings part
+          <SettingsContainer/>
         </Col>
         <Col>
           <QuestionContainer/>

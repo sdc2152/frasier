@@ -55,5 +55,11 @@ class Question(models.Model):
     def total_answers(self):
         return self.false_answers + self.true_answers
 
+    @classmethod
+    def parse_category(cls, category):
+        for cat in cls.CATEGORIES:
+            if cat[1] == category:
+                return cat[0]
+
     class Meta:
         ordering = ("created",)

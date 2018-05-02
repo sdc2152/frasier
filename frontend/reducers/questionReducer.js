@@ -5,7 +5,6 @@ import {
 
 function question(state={}, action) {
   Object.freeze(state);
-
   switch (action.type) {
     case RECEIVE_QUESTION:
       return action.question;
@@ -13,5 +12,4 @@ function question(state={}, action) {
       return state;
   }
 }
-
 export default question;

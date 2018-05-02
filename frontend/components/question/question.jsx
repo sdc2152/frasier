@@ -40,24 +40,15 @@ class Question extends React.Component {
       <Container>
         <img className="center-block"
           src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
-
         <h3>{question.category}</h3>
-
         <p>{question.body}</p>
-
-
-        <Button size="lg" color="primary" onClick={this.toggle}
-            style={{ marginBottom: "1rem" }}
-        >
+        <Button size="lg" color="primary" onClick={this.toggle}>
           Show Answer
         </Button>
-
         <Button className="float-right" size="lg" color="primary"
-          style={{ marginBottom: "1rem" }} onClick={this.skipQuestion}
-        >
-          Skip Question
+          onClick={this.skipQuestion}>
+            Skip Question
         </Button>
-
         <div className={collapse ? "show" : "collapse"}>
           <Card>
             <CardBody>

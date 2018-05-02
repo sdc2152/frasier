@@ -21,7 +21,7 @@ class QuestionRandom(generics.RetrieveAPIView):
         q = Question.objects.all()
         params = self.request.GET
         if "category" in params:
-            q = q.filter(category=params["category"])
+            q = q.filter(category=Question.parse_category(params["category"]))
         if "exclude_id" in params:
             q = q.exclude(pk=params["exclude_id"])
         return q
