@@ -5,10 +5,7 @@ import {
   Card,
   CardBody,
   CardText,
-  Col,
-  Collapse,
   Container,
-  Row,
 } from "reactstrap";
 
 class Question extends React.Component {
@@ -21,18 +18,18 @@ class Question extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.props.fetchRandomQuestion();
+  }
+
   toggle() {
     this.setState({collapse: !this.state.collapse});
   }
 
   skipQuestion() {
-    // TODO: change this to make request to API
-    // fetchQuestion().then(receiveQuestion)
     this.setState({collapse: false});
-    this.props.receiveQuestion({
-      category: "Frasier",
-      body: "frasier question",
-      answer: "frasier answer"
+    this.props.fetchRandomQuestion({
+      "exclude_id": this.props.question.id
     });
   }
 
@@ -41,51 +38,39 @@ class Question extends React.Component {
     const {collapse} = this.state;
     return (
       <Container>
-        <Row>
+        <img className="center-block"
+          src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
 
-          <Col></Col>
+        <h3>{question.category}</h3>
 
-          <Col>
-            <Container>
-              <img className="center-block"
-                src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
-
-              <h3>{question.category}</h3>
-
-              <p>{question.body}</p>
+        <p>{question.body}</p>
 
 
-              <Button size="lg" color="primary" onClick={this.toggle}
-                  style={{ marginBottom: "1rem" }}
-              >
-                Show Answer
+        <Button size="lg" color="primary" onClick={this.toggle}
+            style={{ marginBottom: "1rem" }}
+        >
+          Show Answer
+        </Button>
+
+        <Button className="float-right" size="lg" color="primary"
+          style={{ marginBottom: "1rem" }} onClick={this.skipQuestion}
+        >
+          Skip Question
+        </Button>
+
+        <div className={collapse ? "show" : "collapse"}>
+          <Card>
+            <CardBody>
+              <CardText>{question.answer}</CardText>
+              <Button className="btn-success float-left">
+                Correct
               </Button>
-
-              <Button className="float-right" size="lg" color="primary"
-                style={{ marginBottom: "1rem" }} onClick={this.skipQuestion}
-              >
-                Skip Question
+              <Button className="btn-danger float-right">
+                Incorrect
               </Button>
-
-              <div className={collapse ? "show" : "collapse"}>
-                <Card>
-                  <CardBody>
-                    <CardText>{question.answer}</CardText>
-                    <Button className="btn-success float-left">
-                      Correct
-                    </Button>
-                    <Button className="btn-danger float-right">
-                      Incorrect
-                    </Button>
-                  </CardBody>
-                </Card>
-              </div>
-            </Container>
-          </Col>
-
-          <Col></Col>
-
-        </Row>
+            </CardBody>
+          </Card>
+        </div>
       </Container>
     );
   }

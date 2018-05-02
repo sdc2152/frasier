@@ -1,7 +1,16 @@
 from django.db import models
+from random import randint
 
 
-class QuestionManager(models.Manager):
+class QuestionQuerySet(models.QuerySet):
+    def random_item(self):
+        """
+        Selects a single random question.
+        """
+        pks = self.values_list("pk", flat=True)
+        rand_index = randint(0, len(pks) - 1)
+        return self.get(pk=pks[rand_index])
+
     def create(self, **kwargs):
         """
         Ensures that answer members are set to 0 on creation
@@ -18,6 +27,7 @@ class Question(models.Model):
     DAPHNE = "D"
     ROZ = "R"
     EDDIE = "E"
+
     CATEGORIES = (
         (FRASIER, "Frasier"),
         (NILES, "Niles"),
@@ -27,7 +37,7 @@ class Question(models.Model):
         (EDDIE, "Eddie"),
     )
 
-    objects = QuestionManager()
+    objects = QuestionQuerySet.as_manager()
 
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)

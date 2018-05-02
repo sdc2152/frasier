@@ -13,3 +13,14 @@ export function receiveQuestion(question) {
     question: question
   };
 }
+
+export function fetchRandomQuestion(params={}) {
+  const query = Object.keys(params).map(k => `${k}=${params[k]}`).join("&");
+  const url = `/api/questions/random/?${query}`;
+  return dispatch => {
+    return fetch(url)
+      .then((response) => {return response.json();})
+      .then((json) => {dispatch(receiveQuestion(json));})
+      .catch((ex) => {console.log("parsing failed", ex);});
+  };
+}

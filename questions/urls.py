@@ -4,5 +4,6 @@ from questions import views
 
 urlpatterns = format_suffix_patterns([
     path("questions/<int:pk>/", views.QuestionDetail.as_view()),
+    path("questions/random/", views.QuestionRandom.as_view()),
     path("questions/", views.QuestionList.as_view()),
 ])

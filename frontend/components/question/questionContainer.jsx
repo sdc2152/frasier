@@ -1,6 +1,6 @@
-import {connect} from "react-redux";
-import {requestQuestion, receiveQuestion} from "../../actions/actions.js";
 import Question from "./question.jsx";
+import {connect} from "react-redux";
+import {fetchRandomQuestion} from "../../actions/actions.js";
 
 function mapStateToProps(state) {
   return {
@@ -10,9 +10,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    requestQuestion: () => dispatch(requestQuestion()),
-    // TODO: remove this after implementing API and proper question fetch
-    receiveQuestion: (question) => dispatch(receiveQuestion(question))
+    fetchRandomQuestion: (current_question_id) => {
+      dispatch(fetchRandomQuestion(current_question_id));
+    }
   };
 }
 
