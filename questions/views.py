@@ -1,5 +1,5 @@
 from questions.models import Question
-from questions.serializers import QuestionSerializer
+from questions.serializers import QuestionSerializer, QuestionReadSerializer
 from rest_framework import generics
 
 
@@ -15,7 +15,7 @@ class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class QuestionRandom(generics.RetrieveAPIView):
     queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
+    serializer_class = QuestionReadSerializer
 
     def get_queryset(self):
         return Question.objects.filter_by_params(self.request.GET)

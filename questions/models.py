@@ -21,7 +21,7 @@ class QuestionQuerySet(models.QuerySet):
 
     def filter_by_params(self, params):
         """
-        Filter given a dict of query params
+        Filter questions given a dict of query params
         """
         q = Question.objects.all()
         if "category" in params:
