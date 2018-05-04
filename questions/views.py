@@ -18,13 +18,7 @@ class QuestionRandom(generics.RetrieveAPIView):
     serializer_class = QuestionSerializer
 
     def get_queryset(self):
-        q = Question.objects.all()
-        params = self.request.GET
-        if "category" in params:
-            q = q.filter(category=Question.parse_category(params["category"]))
-        if "exclude_id" in params:
-            q = q.exclude(pk=params["exclude_id"])
-        return q
+        return Question.objects.filter_by_params(self.request.GET)
 
     def get_object(self):
         return self.get_queryset().random_item()

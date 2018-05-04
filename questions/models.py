@@ -19,6 +19,21 @@ class QuestionQuerySet(models.QuerySet):
         kwargs["true_answers"] = 0
         return super().create(**kwargs)
 
+    def filter_by_params(self, params):
+        """
+        Filter given a dict of query params
+        """
+        q = Question.objects.all()
+        if "category" in params:
+            q = q.filter(category=Question.parse_category(params["category"]))
+        if "difficulty" in params:
+            q = q.filter(difficulty=Question.parse_difficulty(
+                params["difficulty"]
+            ))
+        if "exclude_id" in params:
+            q = q.exclude(pk=params["exclude_id"])
+        return q
+
 
 class Question(models.Model):
     FRASIER = "F"
@@ -27,7 +42,6 @@ class Question(models.Model):
     DAPHNE = "D"
     ROZ = "R"
     EDDIE = "E"
-
     CATEGORIES = (
         (FRASIER, "Frasier"),
         (NILES, "Niles"),
@@ -36,9 +50,14 @@ class Question(models.Model):
         (ROZ, "Roz"),
         (EDDIE, "Eddie"),
     )
-
-    objects = QuestionQuerySet.as_manager()
-
+    EASY = "E"
+    MEDIUM = "M"
+    HARD = "H"
+    DIFFICULTIES = (
+        (EASY, "Easy"),
+        (MEDIUM, "Medium"),
+        (HARD, "Hard"),
+    )
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     category = models.CharField(
@@ -48,8 +67,15 @@ class Question(models.Model):
     )
     body = models.CharField(max_length=255, blank=True, default="")
     answer = models.CharField(max_length=255, blank=True, default="")
+    difficulty = models.CharField(
+        max_length=1,
+        choices=DIFFICULTIES,
+        default=EASY
+    )
     false_answers = models.IntegerField(default=0)
     true_answers = models.IntegerField(default=0)
+
+    objects = QuestionQuerySet.as_manager()
 
     @property
     def total_answers(self):
@@ -60,6 +86,12 @@ class Question(models.Model):
         for cat in cls.CATEGORIES:
             if cat[1] == category:
                 return cat[0]
+
+    @classmethod
+    def parse_difficulty(cls, difficulty):
+        for dif in cls.DIFFICULTIES:
+            if dif[1] == difficulty:
+                return dif[0]
 
     class Meta:
         ordering = ("created",)

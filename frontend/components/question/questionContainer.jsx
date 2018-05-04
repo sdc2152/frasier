@@ -1,10 +1,16 @@
 import Question from "./question.jsx";
 import {connect} from "react-redux";
-import {fetchRandomQuestion} from "../../actions/actions.js";
+import {fetchRandomQuestion} from "../../actions/actions";
+import {
+  getCategoryName,
+  getDifficultyName
+} from "../../reducers/settingsSelectors";
 
 function mapStateToProps(state) {
   return {
-    question: state.question
+    question: state.question,
+    category: getCategoryName(state),
+    difficulty: getDifficultyName(state),
   };
 }
 

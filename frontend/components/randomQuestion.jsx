@@ -1,24 +1,19 @@
 import React from "react";
 import QuestionContainer from "./question/questionContainer";
 import SettingsContainer from "./settings/settingsContainer";
-import {
-  Col,
-  Row,
-  Container
-} from "reactstrap";
 
 const randomQuestion = () => {
   return (
-    <Container>
-      <Row>
-        <Col>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-4">
           <SettingsContainer/>
-        </Col>
-        <Col>
+        </div>
+        <div className="col">
           <QuestionContainer/>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </div>
   );
 };
 export default randomQuestion;

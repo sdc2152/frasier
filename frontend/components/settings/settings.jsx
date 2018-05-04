@@ -1,20 +1,14 @@
 import React from "react";
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
-
 
 class Settings extends React.Component {
   constructor(props) {
-    super(props)
-    this.toggle = this.toggle.bind(this)
-    this.handleSelectChange = this.handleSelectChange.bind(this)
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
     this.state = {
       dropdownOpen: false
-    }
+    };
   }
 
   toggle() {
@@ -23,22 +17,51 @@ class Settings extends React.Component {
     }));
   }
 
-  handleSelectChange(e) {
+  handleCategoryChange(e) {
     this.props.receiveCategoryIdx(e.target.value);
   }
 
+  handleDifficultyChange(e) {
+    this.props.receiveDifficultyIdx(e.target.value);
+  }
+
   render() {
-    const {categoryIdx, categories} = this.props.settings;
-    const categoryList = categories.map((c, i) => {
-      return (
-        <option value={i} key={i}>{c}</option>
-      );
-    });
+    const {categoryIdx, categories, difficulties, difficultyIdx} = this.props.settings;
+    const categoryList = categories.map((c, i) => (
+      <option value={i} key={i}>{c}</option>
+    ));
+    const difficultyList = difficulties.map((c, i) => (
+      <option value={i} key={i}>{c}</option>
+    ));
     return (
       <div>
-        <select className="custom-select" onChange={this.handleSelectChange}>
-          {categoryList}
-        </select>
+        <div className="input-group mb-3">
+          <div className="input-group-prepend">
+            <label className="input-group-text">
+              Category
+            </label>
+          </div>
+          <select
+            className="custom-select" id="inputGroupSelect01"
+            onChange={this.handleCategoryChange}
+            defaultValue={categoryIdx}>
+            {categoryList}
+          </select>
+        </div>
+
+        <div className="input-group mb-3">
+          <div className="input-group-prepend">
+            <label className="input-group-text">
+              Difficulty
+            </label>
+          </div>
+          <select
+            className="custom-select" id="inputGroupSelect01"
+            onChange={this.handleDifficultyChange}
+            defaultValue={difficultyIdx}>
+            {difficultyList}
+          </select>
+        </div>
       </div>
     );
   }

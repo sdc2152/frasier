@@ -1,6 +1,9 @@
 import Settings from "./settings";
 import {connect} from "react-redux";
-import {receiveCategoryIdx} from "../../actions/settingsActions";
+import {
+  receiveCategoryIdx,
+  receiveDifficultyIdx
+} from "../../actions/settingsActions";
 
 function mapStateToProps(state) {
   return {
@@ -12,6 +15,9 @@ function mapDispatchToProps(dispatch) {
   return {
     receiveCategoryIdx: (categoryIdx) => {
       dispatch(receiveCategoryIdx(categoryIdx));
+    },
+    receiveDifficultyIdx: (difficultyIdx) => {
+      dispatch(receiveDifficultyIdx(difficultyIdx));
     }
   };
 }

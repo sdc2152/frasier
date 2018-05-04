@@ -19,7 +19,13 @@ class Question extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchRandomQuestion();
+    // TODO: this will fetch a new question every time navigate to question
+    // page. Maybe add a setting that checks for the need to fetch a question
+    // before fetching fetchQuestionIfNeeded(params) => if state.questionNeded
+    // then fetch question
+    this.props.fetchRandomQuestion({
+      "category": this.props.category
+    });
   }
 
   toggle() {
@@ -29,7 +35,9 @@ class Question extends React.Component {
   skipQuestion() {
     this.setState({collapse: false});
     this.props.fetchRandomQuestion({
-      "exclude_id": this.props.question.id
+      "exclude_id": this.props.question.id,
+      "category": this.props.category,
+      "difficulty": this.props.difficulty
     });
   }
 
@@ -37,7 +45,7 @@ class Question extends React.Component {
     const {question} = this.props;
     const {collapse} = this.state;
     return (
-      <Container>
+      <div>
         <img className="center-block"
           src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
         <h3>{question.category}</h3>
@@ -62,7 +70,7 @@ class Question extends React.Component {
             </CardBody>
           </Card>
         </div>
-      </Container>
+      </div>
     );
   }
 }
