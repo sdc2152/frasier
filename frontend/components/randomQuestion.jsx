@@ -6,11 +6,11 @@ const randomQuestion = () => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-4">
-          <SettingsContainer/>
-        </div>
-        <div className="col">
+        <div className="col-sm-12 col-md-7 order-md-first order-sm-last">
           <QuestionContainer/>
+        </div>
+        <div className="col-sm-12 col-md-5 order-md-last order-sm-first">
+          <SettingsContainer/>
         </div>
       </div>
     </div>

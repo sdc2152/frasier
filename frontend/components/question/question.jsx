@@ -1,11 +1,9 @@
 import React from "react";
 
 import {
-  Button,
   Card,
   CardBody,
   CardText,
-  Container,
 } from "reactstrap";
 
 class Question extends React.Component {
@@ -24,7 +22,8 @@ class Question extends React.Component {
     // before fetching fetchQuestionIfNeeded(params) => if state.questionNeded
     // then fetch question
     this.props.fetchRandomQuestion({
-      "category": this.props.category
+      "category": this.props.category,
+      "difficulty": this.props.difficulty
     });
   }
 
@@ -46,30 +45,67 @@ class Question extends React.Component {
     const {collapse} = this.state;
     return (
       <div>
-        <img className="center-block"
-          src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
-        <h3>{question.category}</h3>
-        <p>{question.body}</p>
-        <Button size="lg" color="primary" onClick={this.toggle}>
-          Show Answer
-        </Button>
-        <Button className="float-right" size="lg" color="primary"
-          onClick={this.skipQuestion}>
-            Skip Question
-        </Button>
-        <div className={collapse ? "show" : "collapse"}>
-          <Card>
-            <CardBody>
-              <CardText>{question.answer}</CardText>
-              <Button className="btn-success float-left">
-                Correct
-              </Button>
-              <Button className="btn-danger float-right">
-                Incorrect
-              </Button>
-            </CardBody>
-          </Card>
+        <br/>
+        <div className="row">
+          <div className="col">
+            <img className="center-block"
+              src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
+          </div>
         </div>
+        <br/>
+
+        <div className="row">
+          <div className="col">
+            <h4>Category: {question.category}</h4>
+          </div>
+          <div className="col">
+            <h4 className="float-right">Difficulty: {question.difficulty}</h4>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <p>{question.body}</p>
+          </div>
+        </div>
+
+        <br/>
+
+        <div className="row">
+          <div className="col">
+            <button type="button" className="btn btn-primary btn-lg"
+              onClick={this.toggle}>
+              Show Answer
+            </button>
+          </div>
+          <div className="col">
+            <button type="button"
+              className="btn btn-primary btn-lg float-right"
+              onClick={this.skipQuestion}>
+                Skip Question
+            </button>
+          </div>
+        </div>
+
+        <br/>
+
+        <div className={collapse ? "show" : "collapse"}>
+          <div className="card card-body">
+            <p className="card-text">{question.answer}</p>
+            <div className="row">
+              <div className="col">
+                <button type="button" className="btn btn-success">
+                  Correct
+                </button>
+              </div>
+              <div className="col">
+                <button type="button" className="btn btn-danger">
+                  Incorrect
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     );
   }
