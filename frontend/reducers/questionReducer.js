@@ -1,6 +1,5 @@
 import {
   RECEIVE_QUESTION,
-  REQUEST_QUESTION
 } from "../actions/actions.js";
 
 function question(state={}, action) {

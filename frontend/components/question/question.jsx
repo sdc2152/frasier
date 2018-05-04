@@ -1,11 +1,5 @@
 import React from "react";
 
-import {
-  Card,
-  CardBody,
-  CardText,
-} from "reactstrap";
-
 class Question extends React.Component {
   constructor(props) {
     super(props);
@@ -17,14 +11,7 @@ class Question extends React.Component {
   }
 
   componentDidMount() {
-    // TODO: this will fetch a new question every time navigate to question
-    // page. Maybe add a setting that checks for the need to fetch a question
-    // before fetching fetchQuestionIfNeeded(params) => if state.questionNeded
-    // then fetch question
-    this.props.fetchRandomQuestion({
-      "category": this.props.category,
-      "difficulty": this.props.difficulty
-    });
+    this.props.fetchInitialQuestion();
   }
 
   toggle() {

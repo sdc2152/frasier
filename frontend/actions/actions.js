@@ -5,14 +5,7 @@ import {
   ALL_DIFFICULTIES_IDX
 } from "./settingsActions";
 
-export const REQUEST_QUESTION = "REQUEST_QUESTION";
 export const RECEIVE_QUESTION = "RECEIVE_QUESTION";
-
-export function requestQuestion() {
-  return {
-    type: REQUEST_QUESTION,
-  };
-}
 
 export function receiveQuestion(question) {
   return {
@@ -37,5 +30,13 @@ export function fetchRandomQuestion(params={}) {
         return response.json();})
       .then((json) => {dispatch(receiveQuestion(json));})
       .catch((ex) => {console.log("parsing failed", ex);});
+  };
+}
+
+export function fetchInitialQuestion() {
+  return (dispatch, getState) => {
+    if (Object.keys(getState().question).length === 0) {
+      dispatch(fetchRandomQuestion());
+    }
   };
 }
