@@ -5,6 +5,7 @@ class Question extends React.Component {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.skipQuestion = this.skipQuestion.bind(this);
+    this.answerQuestion = this.answerQuestion.bind(this);
     this.state = {
       collapse: false
     };
@@ -18,13 +19,14 @@ class Question extends React.Component {
     this.setState({collapse: !this.state.collapse});
   }
 
+  answerQuestion() {
+    this.setState({collapse: false});
+    this.props.updateAndFetchRandom();
+  }
+
   skipQuestion() {
     this.setState({collapse: false});
-    this.props.fetchRandomQuestion({
-      "exclude_id": this.props.question.id,
-      "category": this.props.category,
-      "difficulty": this.props.difficulty
-    });
+    this.props.fetchRandomQuestion();
   }
 
   render() {
@@ -80,12 +82,14 @@ class Question extends React.Component {
             <p className="card-text">{question.answer}</p>
             <div className="row">
               <div className="col">
-                <button type="button" className="btn btn-success">
+                <button type="button" className="btn btn-success"
+                  onClick={this.answerQuestion}>
                   Correct
                 </button>
               </div>
               <div className="col">
-                <button type="button" className="btn btn-danger">
+                <button type="button" className="btn btn-danger"
+                  onClick={this.answerQuestion}>
                   Incorrect
                 </button>
               </div>

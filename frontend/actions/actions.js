@@ -1,9 +1,5 @@
-import {
-  CATEGORIES,
-  ALL_CATEGORIES_IDX,
-  DIFFICULTIES,
-  ALL_DIFFICULTIES_IDX
-} from "./settingsActions";
+import {getQueryParams, getQuestion} from "../reducers/selectors";
+import {extractCookie} from "../utils";
 
 export const RECEIVE_QUESTION = "RECEIVE_QUESTION";
 
@@ -14,22 +10,34 @@ export function receiveQuestion(question) {
   };
 }
 
-export function fetchRandomQuestion(params={}) {
-  if (params.category === CATEGORIES[ALL_CATEGORIES_IDX]) {
-    delete params.category;
-  }
-  if (params.difficulty === DIFFICULTIES[ALL_DIFFICULTIES_IDX]) {
-    delete params.difficulty;
-  }
-  const query = Object.keys(params).map(k => `${k}=${params[k]}`).join("&");
-  const url = `/api/questions/random/?${query}`;
-  console.log(url);
-  return dispatch => {
+export function fetchRandomQuestion() {
+  return (dispatch, getState) => {
+    // get query params from state and convert to string
+    const params = getQueryParams(getState());
+    const paramString = Object.keys(params)
+      .map(k => `${k}=${params[k]}`).join("&");
+    const url = `/api/questions/random/?${paramString}`;
+
     return fetch(url)
-      .then((response) => {
-        return response.json();})
-      .then((json) => {dispatch(receiveQuestion(json));})
-      .catch((ex) => {console.log("parsing failed", ex);});
+      .then(response => response.json())
+      .then(json => {dispatch(receiveQuestion(json));})
+      .catch(ex => {console.log("parsing failed", ex);});
+  };
+}
+
+export function updateAndFetchRandom(data) {
+  return (dispatch, getState) => {
+    const questionId = getQuestion(getState()).id;
+    const csrfToken = extractCookie("csrftoken");
+    const url = `/api/questions/${questionId}/`;
+    fetch(url, {
+      body: JSON.stringify(data),
+      method: "PATCH",
+      headers: {
+        "X-CSRFToken": csrfToken,
+        "content-type": "application/json"
+      }
+    });
   };
 }
 

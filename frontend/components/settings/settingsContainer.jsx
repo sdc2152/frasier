@@ -5,21 +5,21 @@ import {
   receiveDifficultyIdx
 } from "../../actions/settingsActions";
 
-function mapStateToProps(state) {
-  return {
+const mapStateToProps = state => (
+  {
     settings: state.settings
-  };
-}
+  }
+);
 
-function mapDispatchToProps(dispatch) {
-  return {
-    receiveCategoryIdx: (categoryIdx) => {
+const mapDispatchToProps = dispatch => (
+  {
+    receiveCategoryIdx: categoryIdx => {
       dispatch(receiveCategoryIdx(categoryIdx));
     },
-    receiveDifficultyIdx: (difficultyIdx) => {
+    receiveDifficultyIdx: difficultyIdx => {
       dispatch(receiveDifficultyIdx(difficultyIdx));
     }
-  };
-}
+  }
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

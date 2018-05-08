@@ -8,9 +8,14 @@ class QuestionList(generics.ListCreateAPIView):
     serializer_class = QuestionSerializer
 
 
-class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
+class QuestionDetail(generics.UpdateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+
+    # TODO: handle request.data.get("action", "")
+    # increment or decrement based on action
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
 
 
 class QuestionRandom(generics.RetrieveAPIView):
