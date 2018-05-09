@@ -15,11 +15,11 @@ class QuestionList(generics.ListCreateAPIView):
 
 
 class QuestionRandom(generics.RetrieveAPIView):
-    queryset = Question.objects.all()
+    queryset = Question.approved_questions.all()
     serializer_class = QuestionReadSerializer
 
     def get_queryset(self):
-        return Question.objects.filter_by_params(self.request.GET)
+        return Question.approved_questions.filter_by_params(self.request.GET)
 
     def get_object(self):
         return self.get_queryset().random_item()
@@ -29,7 +29,7 @@ class QuestionRandom(generics.RetrieveAPIView):
 def increment_answer(request, pk):
     answer = request.data.get("answer", None)
     if answer:
-        question = get_object_or_404(Question, pk=pk)
+        question = get_object_or_404(Question.approved_questions, pk=pk)
         setattr(question, answer, F(answer) + 1)
         question.save()
         return Response()

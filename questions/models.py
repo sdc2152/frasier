@@ -3,7 +3,6 @@ from random import randint
 
 
 class QuestionQuerySet(models.QuerySet):
-
     def random_item(self):
         """
         Selects a single random question.
@@ -24,7 +23,7 @@ class QuestionQuerySet(models.QuerySet):
         """
         Filter questions given a dict of query params
         """
-        q = Question.objects.all()
+        q = self.all()
         if "category" in params:
             q = q.filter(category=Question.parse_category(params["category"]))
         if "difficulty" in params:
@@ -34,6 +33,16 @@ class QuestionQuerySet(models.QuerySet):
         if "exclude_id" in params:
             q = q.exclude(pk=params["exclude_id"])
         return q
+
+
+class ApprovedQuestionsQuerySet(QuestionQuerySet):
+    def all(self):
+        return super().all().filter(approved=True)
+
+
+class PendingQuestionsQuerySet(QuestionQuerySet):
+    def all(self):
+        return super().all().filter(approved=False)
 
 
 class Question(models.Model):
@@ -75,8 +84,11 @@ class Question(models.Model):
     )
     false_answers = models.IntegerField(default=0)
     true_answers = models.IntegerField(default=0)
+    approved = models.BooleanField(default=False)
 
     objects = QuestionQuerySet.as_manager()
+    approved_questions = ApprovedQuestionsQuerySet.as_manager()
+    pending_questions = PendingQuestionsQuerySet.as_manager()
 
     @property
     def total_answers(self):

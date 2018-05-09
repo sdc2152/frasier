@@ -7,7 +7,7 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = (
             "id", "created", "last_modified", "category", "body", "answer",
-            "false_answers", "true_answers", "difficulty"
+            "false_answers", "true_answers", "difficulty", "approved"
         )
 
 
@@ -19,5 +19,5 @@ class QuestionReadSerializer(serializers.ModelSerializer):
         model = Question
         fields = (
             "id", "created", "last_modified", "category", "body", "answer",
-            "false_answers", "true_answers", "difficulty"
+            "false_answers", "true_answers", "difficulty", "approved"
         )
