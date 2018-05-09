@@ -29,7 +29,7 @@ export function updateAndFetchRandom(data) {
   return (dispatch, getState) => {
     const questionId = getQuestion(getState()).id;
     const csrfToken = extractCookie("csrftoken");
-    const url = `/api/questions/${questionId}/`;
+    const url = `/api/questions/${questionId}/increment/`;
     fetch(url, {
       body: JSON.stringify(data),
       method: "PATCH",
@@ -37,7 +37,7 @@ export function updateAndFetchRandom(data) {
         "X-CSRFToken": csrfToken,
         "content-type": "application/json"
       }
-    });
+    }).then(() => dispatch(fetchRandomQuestion()));
   };
 }
 

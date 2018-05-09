@@ -3,6 +3,7 @@ from random import randint
 
 
 class QuestionQuerySet(models.QuerySet):
+
     def random_item(self):
         """
         Selects a single random question.

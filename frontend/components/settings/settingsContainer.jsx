@@ -2,7 +2,7 @@ import Settings from "./settings";
 import {connect} from "react-redux";
 import {
   receiveCategoryIdx,
-  receiveDifficultyIdx
+  receiveDifficultyIdx,
 } from "../../actions/settingsActions";
 
 const mapStateToProps = state => (

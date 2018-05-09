@@ -21,13 +21,6 @@ export const DIFFICULTIES = [
   "Hard"
 ];
 
-export function receiveSettings(settings) {
-  return {
-    type: RECEIVE_SETTINGS,
-    settings: settings
-  };
-}
-
 export function receiveCategoryIdx(categoryIdx) {
   return {
     type: RECEIVE_CATEGORY_IDX,

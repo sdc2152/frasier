@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => (
   {
     fetchRandomQuestion: () => {dispatch(fetchRandomQuestion());},
     fetchInitialQuestion: () => {dispatch(fetchInitialQuestion());},
-    updateAndFetchRandom: () => {dispatch(updateAndFetchRandom());}
+    updateAndFetchRandom: data => {dispatch(updateAndFetchRandom(data));}
   }
 );
 

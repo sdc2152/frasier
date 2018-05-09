@@ -26,7 +26,10 @@ class Settings extends React.Component {
   }
 
   render() {
-    const {categoryIdx, categories, difficulties, difficultyIdx} = this.props.settings;
+    const {
+      categoryIdx, categories, 
+      difficulties, difficultyIdx
+    } = this.props.settings;
     const categoryList = categories.map((c, i) => (
       <option value={i} key={i}>{c}</option>
     ));

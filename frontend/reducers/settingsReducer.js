@@ -5,7 +5,7 @@ import {
   ALL_DIFFICULTIES_IDX,
   RECEIVE_SETTINGS,
   RECEIVE_CATEGORY_IDX,
-  RECEIVE_DIFFICULTY_IDX
+  RECEIVE_DIFFICULTY_IDX,
 } from "../actions/settingsActions.js";
 
 const defaultState = {
@@ -19,7 +19,9 @@ function settings(state=defaultState, action) {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_SETTINGS:
-      return action.settings;
+      newState = Object.assign({}, state, action.settings);
+      console.log(newState);
+      return newState;
     case RECEIVE_CATEGORY_IDX:
       return Object.assign({}, state, {categoryIdx: action.categoryIdx});
     case RECEIVE_DIFFICULTY_IDX:

@@ -1,21 +1,17 @@
 from questions.models import Question
 from questions.serializers import QuestionSerializer, QuestionReadSerializer
+
 from rest_framework import generics
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from django.db.models import F
+from django.shortcuts import get_object_or_404
 
 
 class QuestionList(generics.ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
-
-
-class QuestionDetail(generics.UpdateAPIView):
-    queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
-
-    # TODO: handle request.data.get("action", "")
-    # increment or decrement based on action
-    def partial_update(self, request, *args, **kwargs):
-        return super().partial_update(request, *args, **kwargs)
 
 
 class QuestionRandom(generics.RetrieveAPIView):
@@ -27,3 +23,14 @@ class QuestionRandom(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.get_queryset().random_item()
+
+
+@api_view(["PATCH"])
+def increment_answer(request, pk):
+    answer = request.data.get("answer", None)
+    if answer:
+        question = get_object_or_404(Question, pk=pk)
+        setattr(question, answer, F(answer) + 1)
+        question.save()
+        return Response()
+    return Response(status=400)

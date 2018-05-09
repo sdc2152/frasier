@@ -19,9 +19,9 @@ class Question extends React.Component {
     this.setState({collapse: !this.state.collapse});
   }
 
-  answerQuestion() {
+  answerQuestion(e) {
     this.setState({collapse: false});
-    this.props.updateAndFetchRandom();
+    this.props.updateAndFetchRandom({"answer": e.target.value});
   }
 
   skipQuestion() {
@@ -83,13 +83,13 @@ class Question extends React.Component {
             <div className="row">
               <div className="col">
                 <button type="button" className="btn btn-success"
-                  onClick={this.answerQuestion}>
+                  value="true_answers" onClick={this.answerQuestion}>
                   Correct
                 </button>
               </div>
               <div className="col">
                 <button type="button" className="btn btn-danger"
-                  onClick={this.answerQuestion}>
+                  value="false_answers" onClick={this.answerQuestion}>
                   Incorrect
                 </button>
               </div>
