@@ -1,10 +1,12 @@
 import {combineReducers} from "redux";
-import QuestionReducer from "./questionReducer.js";
-import SettingsReducer from "./settingsReducer.js";
+import QuestionReducer from "./questionReducer";
+import SettingsReducer from "./settingsReducer";
+import QuestionFormReducer from "./questionFormReducer";
 
 const rootReducer = combineReducers({
   settings: SettingsReducer,
-  question: QuestionReducer
+  question: QuestionReducer,
+  questionForm: QuestionFormReducer
 });
 
 export default rootReducer;

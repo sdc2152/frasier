@@ -11,13 +11,6 @@ class QuestionSerializer(serializers.ModelSerializer):
         )
 
 
-class QuestionReadSerializer(serializers.ModelSerializer):
+class QuestionReadSerializer(QuestionSerializer):
     category = serializers.CharField(source="get_category_display")
     difficulty = serializers.CharField(source="get_difficulty_display")
-
-    class Meta:
-        model = Question
-        fields = (
-            "id", "created", "last_modified", "category", "body", "answer",
-            "false_answers", "true_answers", "difficulty", "approved"
-        )

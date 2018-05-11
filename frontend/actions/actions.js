@@ -31,11 +31,14 @@ export function updateAndFetchRandom(data) {
     const csrfToken = extractCookie("csrftoken");
     const url = `/api/questions/${questionId}/increment/`;
     fetch(url, {
+      credentials: "include",
+      mode: "same-origin",
       body: JSON.stringify(data),
       method: "PATCH",
       headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
         "X-CSRFToken": csrfToken,
-        "content-type": "application/json"
       }
     }).then(() => dispatch(fetchRandomQuestion()));
   };

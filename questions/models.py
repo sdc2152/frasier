@@ -44,6 +44,14 @@ class PendingQuestionsQuerySet(QuestionQuerySet):
     def all(self):
         return super().all().filter(approved=False)
 
+    def create(self, **kwargs):
+        """
+        Ensure that question submissions are not approved on creation
+        """
+        kwargs["approved"] = False
+        print("hellalskdjfalksdf")
+        return super().create(**kwargs)
+
 
 class Question(models.Model):
     FRASIER = "F"
@@ -89,22 +97,6 @@ class Question(models.Model):
     objects = QuestionQuerySet.as_manager()
     approved_questions = ApprovedQuestionsQuerySet.as_manager()
     pending_questions = PendingQuestionsQuerySet.as_manager()
-
-    @property
-    def total_answers(self):
-        return self.false_answers + self.true_answers
-
-    @classmethod
-    def parse_category(cls, category):
-        for cat in cls.CATEGORIES:
-            if cat[1] == category:
-                return cat[0]
-
-    @classmethod
-    def parse_difficulty(cls, difficulty):
-        for dif in cls.DIFFICULTIES:
-            if dif[1] == difficulty:
-                return dif[0]
 
     class Meta:
         ordering = ("created",)

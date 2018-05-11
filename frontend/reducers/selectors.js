@@ -36,3 +36,13 @@ export const getQueryParams = state => {
   }
   return queryParams;
 };
+
+export const getPostDataFromQuestionForm = ({questionForm}) => {
+  const difficulty = questionForm.difficulty[0].toUpperCase();
+  const category = questionForm.category[0].toUpperCase();
+  return Object.assign(
+    {},
+    questionForm,
+    {difficulty: difficulty, category: category}
+  )
+}

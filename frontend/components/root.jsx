@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import NavBar from "./navBar.jsx";
 import Home from "./home.jsx";
 import RandomQuestion from "./randomQuestion";
+import QuestionForm from "./questionForm";
 
 // TODO: remove before productions?
 import {hot} from "react-hot-loader";
@@ -15,6 +16,7 @@ const root = () =>  {
           <NavBar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/questions/submit" component={QuestionForm}/>
             <Route path="/questions" component={RandomQuestion}/>
             <Route render={() => <h1>Not Found</h1>} />
           </Switch>

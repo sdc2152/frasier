@@ -14,6 +14,11 @@ class QuestionList(generics.ListCreateAPIView):
     serializer_class = QuestionSerializer
 
 
+class QuestionSubmit(generics.CreateAPIView):
+    queryset = Question.pending_questions.all()
+    serializer_class = QuestionSerializer
+
+
 class QuestionRandom(generics.RetrieveAPIView):
     queryset = Question.approved_questions.all()
     serializer_class = QuestionReadSerializer

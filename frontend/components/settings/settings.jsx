@@ -27,7 +27,7 @@ class Settings extends React.Component {
 
   render() {
     const {
-      categoryIdx, categories, 
+      categoryIdx, categories,
       difficulties, difficultyIdx
     } = this.props.settings;
     const categoryList = categories.map((c, i) => (
