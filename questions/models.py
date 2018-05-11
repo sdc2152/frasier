@@ -49,7 +49,6 @@ class PendingQuestionsQuerySet(QuestionQuerySet):
         Ensure that question submissions are not approved on creation
         """
         kwargs["approved"] = False
-        print("hellalskdjfalksdf")
         return super().create(**kwargs)
 
 

@@ -1,5 +1,9 @@
 from questions.models import Question
-from questions.serializers import QuestionSerializer, QuestionReadSerializer
+from questions.serializers import (
+    QuestionSerializer,
+    QuestionReadSerializer,
+    QuestionSubmissionSerializer
+)
 
 from rest_framework import generics
 from rest_framework.decorators import api_view
@@ -15,8 +19,7 @@ class QuestionList(generics.ListCreateAPIView):
 
 
 class QuestionSubmit(generics.CreateAPIView):
-    queryset = Question.pending_questions.all()
-    serializer_class = QuestionSerializer
+    serializer_class = QuestionSubmissionSerializer
 
 
 class QuestionRandom(generics.RetrieveAPIView):

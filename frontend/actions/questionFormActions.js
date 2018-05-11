@@ -31,8 +31,7 @@ export function postQuestion() {
   return (dispatch, getState) => {
     const data = getPostDataFromQuestionForm(getState());
     const csrfToken = extractCookie("csrftoken");
-    const url = "/api/questions/submit/";
-    const request = {
+    fetch("/api/questions/submit/", {
       credentials: "include",
       mode: "same-origin",
       body: JSON.stringify(data),
@@ -42,7 +41,6 @@ export function postQuestion() {
         "Content-Type": "application/json",
         "X-CSRFToken": csrfToken,
       }
-    };
-    fetch(url, request).then(() => console.log("done"));
+    }).then(() => console.log("done"));
   };
 }

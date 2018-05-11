@@ -44,5 +44,5 @@ export const getPostDataFromQuestionForm = ({questionForm}) => {
     {},
     questionForm,
     {difficulty: difficulty, category: category}
-  )
-}
+  );
+};

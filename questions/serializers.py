@@ -11,6 +11,11 @@ class QuestionSerializer(serializers.ModelSerializer):
         )
 
 
+class QuestionSubmissionSerializer(QuestionSerializer):
+    def create(self, validated_data):
+        return Question.pending_questions.create(**validated_data)
+
+
 class QuestionReadSerializer(QuestionSerializer):
     category = serializers.CharField(source="get_category_display")
     difficulty = serializers.CharField(source="get_difficulty_display")
