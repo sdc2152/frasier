@@ -1,7 +1,8 @@
 import {extractCookie} from "../utils";
-import {getPostDataFromQuestionForm} from "../reducers/selectors";
+import {getPostDataFromQuestionForm} from "../reducers/questionFormSelectors";
 
 export const RECEIVE_FORM_FIELD_CHANGE = "RECEIVE_FORM_FIELD_CHANGE";
+export const RESET_FORM_FIELD = "RESET_FORM_FIELD";
 export const DEFAULT_CATEGORY_IDX = 0;
 export const DEFAULT_DIFFICULTY_IDX = 0;
 
@@ -27,6 +28,12 @@ export function receiveFormFieldChange(change) {
   };
 }
 
+export function resetFormField() {
+  return {
+    type: RESET_FORM_FIELD
+  };
+}
+
 export function postQuestion() {
   return (dispatch, getState) => {
     const data = getPostDataFromQuestionForm(getState());
@@ -41,6 +48,8 @@ export function postQuestion() {
         "Content-Type": "application/json",
         "X-CSRFToken": csrfToken,
       }
-    }).then(() => console.log("done"));
+    }).then(() => {
+      dispatch(resetFormField());
+    });
   };
 }

@@ -1,5 +1,6 @@
 import {
   RECEIVE_FORM_FIELD_CHANGE,
+  RESET_FORM_FIELD,
   DEFAULT_CATEGORY_IDX,
   CATEGORIES,
   DEFAULT_DIFFICULTY_IDX,
@@ -9,8 +10,8 @@ import {
 const defaultState = {
   body: "",
   answer: "",
-  category: CATEGORIES[DEFAULT_CATEGORY_IDX],
-  difficulty: DIFFICULTIES[DEFAULT_DIFFICULTY_IDX]
+  category: DEFAULT_CATEGORY_IDX,
+  difficulty: DEFAULT_DIFFICULTY_IDX
 };
 
 function questionFormReducer(state=defaultState, action) {
@@ -18,6 +19,8 @@ function questionFormReducer(state=defaultState, action) {
   switch(action.type) {
     case RECEIVE_FORM_FIELD_CHANGE:
       return Object.assign({}, state, action.change);
+    case RESET_FORM_FIELD:
+      return defaultState;
     default:
       return state;
   }

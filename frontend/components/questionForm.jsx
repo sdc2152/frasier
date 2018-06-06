@@ -1,9 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-  DEFAULT_CATEGORY_IDX,
   CATEGORIES,
-  DEFAULT_DIFFICULTY_IDX,
   DIFFICULTIES,
   postQuestion,
   receiveFormFieldChange
@@ -12,51 +10,72 @@ import {
 const handleChange = (e) => {
   let change = {};
   change[e.target.title] = e.target.value;
-  return receiveFormFieldChange(change);
+  return change;
 };
 
-const QuestionForm = ({dispatch}) => {
+const QuestionForm = ({postQuestion, receiveFormFieldChange, questionForm}) => {
+  const {body, answer, category, difficulty} = questionForm;
   return (
     <div className="container">
       <div className="row">
         <form
-          onSubmit={(e) => {e.preventDefault(); dispatch(postQuestion());}}>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text">Body</label>
+          onSubmit={(e) => {e.preventDefault(); postQuestion();}}>
+
+          <div className="form-group row">
+            <label htmlFor="inputBody"
+              className="col-sm-3 col-form-label">
+              Body
+            </label>
+            <div className="col-sm-9">
+              <textarea title="body" className="form-control" id="inputBody"
+                value={body}
+                onChange={e => receiveFormFieldChange(handleChange(e))}>
+              </textarea>
             </div>
-            <input title="body"
-              onChange={e => dispatch(handleChange(e))}>
-            </input>
           </div>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text">Answer</label>
+
+          <div className="form-group row">
+            <label htmlFor="inputAnswer"
+              className="col-sm-3 col-form-label">
+              Answer
+            </label>
+            <div className="col-sm-9">
+              <textarea title="answer" className="form-control"
+                value={answer}
+                id="inputAnswer" onChange={
+                e => receiveFormFieldChange(handleChange(e))}>
+              </textarea>
             </div>
-            <input title="answer"
-              onChange={e => dispatch(handleChange(e))}>
-            </input>
           </div>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text">Category</label>
+
+          <div className="form-group row">
+            <label htmlFor="inputCategory"
+              className="col-sm-3 col-form-label">
+              Category
+            </label>
+            <div className="col-sm-9">
+              <select className="form-control" id="inputCategory"
+                title="category" value={category}
+                onChange={e => receiveFormFieldChange(handleChange(e))}>
+                {CATEGORIES.map((c, i) =><option value={i} key={i}>{c}</option>)}
+              </select>
             </div>
-            <select className="custom-select" id="inputGroupSelect01"
-              title="category" defaultValue={DEFAULT_CATEGORY_IDX}
-              onChange={e => dispatch(handleChange(e))}>
-              {CATEGORIES.map((c, i) =><option key={i}>{c}</option>)}
-            </select>
           </div>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <label className="input-group-text">Category</label>
+
+          <div className="form-group row">
+            <label htmlFor="inputDifficulty"
+              className="col-sm-3 col-form-label">
+              Difficulty
+            </label>
+            <div className="col-sm-9">
+              <select className="form-control" id="inputDifficulty"
+                title="difficulty" value={difficulty}
+                onChange={e => receiveFormFieldChange(handleChange(e))}>
+                {DIFFICULTIES.map((c, i) =><option value={i} key={i}>{c}</option>)}
+              </select>
             </div>
-            <select className="custom-select" id="inputGroupSelect01"
-              title="difficulty" defaultValue={DEFAULT_DIFFICULTY_IDX}
-              onChange={e => dispatch(handleChange(e))}>
-              {DIFFICULTIES.map((c, i) =><option key={i}>{c}</option>)}
-            </select>
           </div>
+
           <input type="submit"/>
         </form>
       </div>
@@ -64,5 +83,19 @@ const QuestionForm = ({dispatch}) => {
   );
 };
 
+const mapStateToProps = state => (
+  {
+    questionForm: state.questionForm
+  }
+);
 
-export default connect()(QuestionForm);
+const mapDispatchToProps = dispatch => (
+  {
+    postQuestion: () => {dispatch(postQuestion());},
+    receiveFormFieldChange: change => {
+      dispatch(receiveFormFieldChange(change));
+    },
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionForm);
