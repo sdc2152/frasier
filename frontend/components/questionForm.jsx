@@ -17,6 +17,7 @@ const QuestionForm = ({postQuestion, receiveFormFieldChange, questionForm}) => {
   const {body, answer, category, difficulty} = questionForm;
   return (
     <div className="container">
+      <h1>Submit Question</h1>
       <div className="row">
         <form
           onSubmit={(e) => {e.preventDefault(); postQuestion();}}>

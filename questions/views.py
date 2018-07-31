@@ -10,7 +10,6 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from django.db.models import F
-from django.shortcuts import get_object_or_404
 
 
 class QuestionList(generics.ListCreateAPIView):
@@ -30,6 +29,7 @@ class QuestionRandom(generics.RetrieveAPIView):
         return Question.approved_questions.filter_by_params(self.request.GET)
 
     def get_object(self):
+        # TODO: change so case of none matching is handled
         return self.get_queryset().random_item()
 
 
@@ -37,8 +37,9 @@ class QuestionRandom(generics.RetrieveAPIView):
 def increment_answer(request, pk):
     answer = request.data.get("answer", None)
     if answer:
-        question = get_object_or_404(Question.approved_questions, pk=pk)
-        setattr(question, answer, F(answer) + 1)
-        question.save()
+        question = Question.approved_questions.filter(pk=pk)
+        question.update(total_answers=F("total_answers") + 1)
+        if answer == "true_answers":
+            question.update(true_answers=F("true_answers") + 1)
         return Response()
     return Response(status=400)
