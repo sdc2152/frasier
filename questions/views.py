@@ -22,11 +22,13 @@ class QuestionSubmit(generics.CreateAPIView):
 
 
 class QuestionRandom(generics.RetrieveAPIView):
-    queryset = Question.approved_questions.all()
+    queryset = Question.objects.approved_questions()
     serializer_class = QuestionReadSerializer
 
     def get_queryset(self):
-        return Question.approved_questions.filter_by_params(self.request.GET)
+        return Question.objects.approved_questions.filter_by_params(
+            self.request.GET
+        )
 
     def get_object(self):
         # TODO: change so case of none matching is handled
@@ -37,7 +39,7 @@ class QuestionRandom(generics.RetrieveAPIView):
 def increment_answer(request, pk):
     answer = request.data.get("answer", None)
     if answer:
-        question = Question.approved_questions.filter(pk=pk)
+        question = Question.objects.approved_questions.filter(pk=pk)
         question.update(total_answers=F("total_answers") + 1)
         if answer == "true_answers":
             question.update(true_answers=F("true_answers") + 1)

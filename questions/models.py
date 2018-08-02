@@ -15,6 +15,8 @@ class QuestionQuerySet(models.QuerySet):
         return self.get(pk=pks[rand_index])
 
     def create(self, **kwargs):
+        # TODO: ensure that and initial save will also set correct initial
+        # values
         """
         Ensures that answer members are set to 0 on creation
         """
@@ -35,25 +37,15 @@ class QuestionQuerySet(models.QuerySet):
             q = q.exclude(pk=params["exclude_id"])
         return q
 
+    def approved_questions(self):
+        return self.filter(approved=True)
 
-class ApprovedQuestionsQuerySet(QuestionQuerySet):
-    def all(self):
-        return super().all().filter(approved=True)
-
-
-class PendingQuestionsQuerySet(QuestionQuerySet):
-    def all(self):
-        return super().all().filter(approved=False)
-
-    def create(self, **kwargs):
-        """
-        Ensure that question submissions are not approved on creation
-        """
-        kwargs["approved"] = False
-        return super().create(**kwargs)
+    def pending_questions(self):
+        return self.filter(approved=False)
 
 
 class Question(models.Model):
+    # constants
     FRASIER = "F"
     NILES = "N"
     MARTIN = "M"
@@ -78,7 +70,11 @@ class Question(models.Model):
     )
     HARD_PERCENT = .2
     EASY_PERCENT = .7
+    # number of total_answers before starting to adjust difficulty base on
+    # percent of correct answers
+    MIN_TOTAL_ANS_FOR_CORRECTION = 10
 
+    # fields
     created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     category = models.CharField(
@@ -98,50 +94,61 @@ class Question(models.Model):
     approved = models.BooleanField(default=False)
 
     objects = QuestionQuerySet.as_manager()
-    approved_questions = ApprovedQuestionsQuerySet.as_manager()
-    pending_questions = PendingQuestionsQuerySet.as_manager()
 
     class Meta:
-        ordering = ("created",)
+        ordering = ("created", "difficulty", "category")
+
+    @property
+    def percent_correct(self):
+        if self.total_answers == 0:
+            return 0.0
+        return self.true_answers / self.total_answers
 
     def __str__(self):
-        return "Question: {} -- correct: {} total: {}".format(
-            self.body, self.true_answers, self.total_answers
+        return "Question: {} -- percent correct: {} -- difficulty: {}".format(
+            self.body, self.percent_correct, self.difficulty
         )
 
     @classmethod
-    def easy_correct(cls):
-        incorrect_easy = cls.approved_questions.filter(
-            total_answers__gt=10, difficulty=Question.EASY,
-            true_answers__lt=F("total_answers") * cls.EASY_PERCENT
-        )
-        # change questions to medium
-        incorrect_easy.filter(
-            true_answers__gte=F("total_answers") * cls.HARD_PERCENT
-        ).update(difficulty=cls.MEDIUM)
-        # change questions to hard
-        incorrect_easy.filter(
-            true_answers__lt=F("total_answers") * cls.HARD_PERCENT
-        ).update(difficulty=cls.HARD)
-
-    @classmethod
-    def medium_correct(cls):
-        medium_question = cls.approved_questions.filter(
-            total_answers__gt=10, difficulty=Question.MEDIUM
-        )
-        # change questions to hard
-        medium_question.filter(
-            true_answers__lt=F("total_answers") * cls.HARD_PERCENT
-        ).update(difficulty=cls.HARD)
-        # change questions to easy
-        medium_question.filter(
+    def correct_easy(cls):
+        """
+        Changes questions that are incorrectly marked Medium or Hard to Easy
+        """
+        return cls.objects.approved_questions().exclude(
+            difficulty=cls.EASY,
+        ).filter(
+            total_answers__gt=cls.MIN_TOTAL_ANS_FOR_CORRECTION,
             true_answers__gte=F("total_answers") * cls.EASY_PERCENT
         ).update(difficulty=cls.EASY)
 
-    # TODO: implement hard_correct and test to make sure they are selecting
-    # right entries
+    @classmethod
+    def correct_medium(cls):
+        """
+        Changes questions that are incorrectly marked Easy or Hard to Medium
+        """
+        return cls.objects.approved_questions().exclude(
+            difficulty=cls.MEDIUM,
+        ).filter(
+            total_answers__gt=cls.MIN_TOTAL_ANS_FOR_CORRECTION,
+            true_answers__lt=F("total_answers") * cls.EASY_PERCENT,
+            true_answers__gte=F("total_answers") * cls.HARD_PERCENT
+        ).update(difficulty=cls.MEDIUM)
 
     @classmethod
-    def correct_question_difficulty(cls):
-        cls.easy_correct()
-        cls.medium_correct()
+    def correct_hard(cls):
+        """
+        Changes questions that are incorrectly marked Easy or Medium to Hard
+        """
+        return cls.objects.approved_questions().exclude(
+            difficulty=cls.HARD
+        ).filter(
+            total_answers__gt=cls.MIN_TOTAL_ANS_FOR_CORRECTION,
+            true_answers__lt=F("total_answers") * cls.HARD_PERCENT
+        ).update(difficulty=cls.HARD)
+
+    @classmethod
+    def correct_difficulties(cls):
+        """
+        corrects all incorrectly marked difficulties
+        """
+        return cls.correct_easy() + cls.correct_medium() + cls.correct_hard()
