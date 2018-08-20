@@ -17,7 +17,7 @@ export function fetchRandomQuestion() {
     const paramString = Object.keys(params)
       .map(k => `${k}=${params[k]}`).join("&");
     const url = `/api/questions/random/?${paramString}`;
-
+    console.log(url)
     return fetch(url)
       .then(response => response.json())
       .then(json => {dispatch(receiveQuestion(json));})

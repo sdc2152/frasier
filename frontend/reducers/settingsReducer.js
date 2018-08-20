@@ -20,7 +20,6 @@ function settings(state=defaultState, action) {
   switch (action.type) {
     case RECEIVE_SETTINGS:
       newState = Object.assign({}, state, action.settings);
-      console.log(newState);
       return newState;
     case RECEIVE_CATEGORY_IDX:
       return Object.assign({}, state, {categoryIdx: action.categoryIdx});

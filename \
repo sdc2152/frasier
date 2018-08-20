@@ -16,10 +16,10 @@ class QuestionList(generics.ListAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
-    def list(self, request):
-        queryset = self.get_queryset().handle_sort_by(request.GET)
-        serializer = QuestionSerializer(queryset, many=True)
-        return Response(serializer.data)
+    # def list(self):
+        # queryset = self.get_queryset()
+        # serializer = QuestionSerializer(queryset, many=True)
+        # return Response(serializer.data)
 
 
 class QuestionSubmit(generics.CreateAPIView):

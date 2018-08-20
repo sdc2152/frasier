@@ -1,10 +1,20 @@
 import React from "react";
 import {connect} from "react-redux";
-import {fetchQuestionList} from "../actions/questionListActions";
+import {
+  fetchQuestionList,
+  receiveSortByIdx,
+  SORT_BY
+} from "../actions/questionListActions";
 
 class QuestionList extends React.Component {
   constructor(props) {
     super(props);
+    this.handleSortByChange = this.handleSortByChange.bind(this)
+  }
+
+  handleSortByChange(e) {
+    e.preventDefault();
+    this.props.receiveSortIdx(Number(e.target.value));
   }
 
   componentWillMount() {
@@ -12,7 +22,10 @@ class QuestionList extends React.Component {
   }
 
   render() {
-    const {list} = this.props.questionList;
+    const {list, sortByIdx} = this.props.questionList;
+    const sortByList = SORT_BY.map((c, i) => (
+      <option value={i} key={i}>{c}</option>
+    ));
     const questions = list.map((c, i) =>(
       <li key={i}>
         {c.body}
@@ -20,6 +33,19 @@ class QuestionList extends React.Component {
       ));
     return (
       <div className="container">
+        <div className="input-group mb-3">
+          <div className="input-group-prepend">
+            <label className="input-group-text">
+              Sort By
+            </label>
+          </div>
+          <select
+            className="custom-select" id="inputGroupSelect01"
+            onChange={this.handleSortByChange}
+            defaultValue={sortByIdx}>
+            {sortByList}
+          </select>
+        </div>
         <h1>Questions List</h1>
         <ul>
           {questions}
@@ -31,13 +57,14 @@ class QuestionList extends React.Component {
 
 const mapStateToProps = state => (
   {
-    questionList: state.questionList
+    questionList: state.questionList,
   }
 );
 
 const mapDispatchToProps = dispatch => (
   {
-    fetchQuestionList: () => {dispatch(fetchQuestionList());}
+    fetchQuestionList: () => {dispatch(fetchQuestionList());},
+    receiveSortIdx: (sortIdx) => {dispatch(receiveSortByIdx(sortIdx));}
   }
 );
 

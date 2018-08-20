@@ -18,11 +18,13 @@ class Settings extends React.Component {
   }
 
   handleCategoryChange(e) {
-    this.props.receiveCategoryIdx(e.target.value);
+    e.preventDefault();
+    this.props.receiveCategoryIdx(Number(e.target.value));
   }
 
   handleDifficultyChange(e) {
-    this.props.receiveDifficultyIdx(e.target.value);
+    e.preventDefault();
+    this.props.receiveDifficultyIdx(Number(e.target.value));
   }
 
   render() {

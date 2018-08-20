@@ -31,11 +31,29 @@ class QuestionQuerySet(models.QuerySet):
         q = self.all()
         if "category" in params and params["category"] != "Any":
             q = q.filter(category=params["category"][0])
-        if "difficulty" in params and params["difficulty"] != "Any":
-            q = q.filter(difficulty=params["difficulty"][0])
+        if "difficulty" in params and params["difficulty"] != "0":
+            q = q.filter(difficulty=params["difficulty"])
         if "exclude_id" in params:
             q = q.exclude(pk=params["exclude_id"])
         return q
+
+    def handle_sort_by(self, params):
+        """
+        order return values based on params
+        """
+        sort_by = int(params.get("sort", 0))
+        if sort_by == 1:
+            return self.order_by("-body")
+        elif sort_by == 2:
+            return self.order_by("created")
+        elif sort_by == 3:
+            return self.order_by("-created")
+        elif sort_by == 4:
+            return self.order_by("difficulty")
+        elif sort_by == 5:
+            return self.order_by("-difficulty")
+        else:
+            return self.order_by("body")
 
     def approved_questions(self):
         return self.filter(approved=True)
@@ -60,9 +78,9 @@ class Question(models.Model):
         (ROZ, "Roz"),
         (EDDIE, "Eddie"),
     )
-    EASY = "E"
-    MEDIUM = "M"
-    HARD = "H"
+    EASY = 1
+    MEDIUM = 2
+    HARD = 3
     DIFFICULTIES = (
         (EASY, "Easy"),
         (MEDIUM, "Medium"),
@@ -84,11 +102,7 @@ class Question(models.Model):
     )
     body = models.CharField(max_length=255, blank=True, default="")
     answer = models.CharField(max_length=255, blank=True, default="")
-    difficulty = models.CharField(
-        max_length=1,
-        choices=DIFFICULTIES,
-        default=EASY
-    )
+    difficulty = models.IntegerField(choices=DIFFICULTIES, default=EASY)
     true_answers = models.IntegerField(default=0)
     total_answers = models.IntegerField(default=0)
     approved = models.BooleanField(default=False)

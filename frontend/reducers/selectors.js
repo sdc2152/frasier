@@ -11,8 +11,8 @@ export const getCategoryName = ({settings}) => {
 };
 
 export const getDifficultyName = ({settings}) => {
-  const {difficulties, difficultyIdx} = settings;
-  return difficulties[difficultyIdx];
+  const {difficultyIdx} = settings;
+  return difficultyIdx;
 };
 
 export const getQuestion = ({question}) => question;
