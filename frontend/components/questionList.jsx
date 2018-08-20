@@ -1,4 +1,5 @@
 import React from "react";
+import QuestionListItem from "./questionListItem";
 import {connect} from "react-redux";
 import {
   fetchQuestionList,
@@ -9,7 +10,7 @@ import {
 class QuestionList extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSortByChange = this.handleSortByChange.bind(this)
+    this.handleSortByChange = this.handleSortByChange.bind(this);
   }
 
   handleSortByChange(e) {
@@ -26,11 +27,12 @@ class QuestionList extends React.Component {
     const sortByList = SORT_BY.map((c, i) => (
       <option value={i} key={i}>{c}</option>
     ));
-    const questions = list.map((c, i) =>(
-      <li key={i}>
-        {c.body}
-      </li>
-      ));
+    const questions = list.map((c, i) => (
+        <li key={i}>
+          <QuestionListItem question={c}/>
+        </li>
+      )
+    );
     return (
       <div className="container">
         <div className="input-group mb-3">
@@ -47,7 +49,7 @@ class QuestionList extends React.Component {
           </select>
         </div>
         <h1>Questions List</h1>
-        <ul>
+        <ul className="container">
           {questions}
         </ul>
       </div>

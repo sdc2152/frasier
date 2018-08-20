@@ -13,7 +13,7 @@ class QuestionSerializer(serializers.ModelSerializer):
 
 class QuestionSubmissionSerializer(QuestionSerializer):
     def create(self, validated_data):
-        return Question.pending_questions.create(**validated_data)
+        return Question.objects.create(**validated_data)
 
 
 class QuestionReadSerializer(QuestionSerializer):
