@@ -1,6 +1,6 @@
-export const RECEIVE_SETTINGS = "RECEIVE_SETTINGS";
 export const RECEIVE_CATEGORY_IDX = "RECEIVE_CATEGORY_IDX";
 export const RECEIVE_DIFFICULTY_IDX = "RECEIVE_DIFFICULTY_IDX";
+export const SET_DEFAULT_SETTINGS = "SET_DEFAULT_SETTINGS";
 
 export const ALL_CATEGORIES_IDX = 0;
 export const CATEGORIES = [
@@ -32,5 +32,11 @@ export function receiveDifficultyIdx(difficultyIdx) {
   return {
     type: RECEIVE_DIFFICULTY_IDX,
     difficultyIdx: difficultyIdx
+  };
+}
+
+export function setDefaultSettings() {
+  return {
+    type: SET_DEFAULT_SETTINGS,
   };
 }

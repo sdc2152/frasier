@@ -13,8 +13,8 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => (
   {
-    receiveAnswer: (answer) => dispatch(receiveAnswer(answer)),
-    addNewPlayer: (name) => dispatch(addNewPlayer(name))
+    receiveAnswer: answer => dispatch(receiveAnswer(answer)),
+    addNewPlayer: name => dispatch(addNewPlayer(name))
   }
 );
 

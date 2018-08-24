@@ -27,6 +27,10 @@ class Settings extends React.Component {
     this.props.receiveDifficultyIdx(Number(e.target.value));
   }
 
+  componentWillUnmount() {
+    this.props.setDefaultSettings();
+  }
+
   render() {
     const {
       categoryIdx, categories,

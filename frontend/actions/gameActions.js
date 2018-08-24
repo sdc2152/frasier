@@ -1,8 +1,8 @@
-const ADD_NEW_PLAYER = "ADD_NEW_PLAYER";
-const RECEIVE_ANSWER = "RECEIVE_ANSWER";
+export const ADD_NEW_PLAYER = "ADD_NEW_PLAYER";
+export const RECEIVE_ANSWER = "RECEIVE_ANSWER";
 
-const CORRECT_ANSWER = "CORRECT_ANSWER";
-const FALSE_ANSWER = "FALSE_ANSWER";
+export const CORRECT_ANSWER = "CORRECT_ANSWER";
+export const FALSE_ANSWER = "FALSE_ANSWER";
 
 export function receiveAnswer(answer) {
   return {

@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import {
   receiveCategoryIdx,
   receiveDifficultyIdx,
+  setDefaultSettings,
+
 } from "../../actions/settingsActions";
 
 const mapStateToProps = state => (
@@ -13,12 +15,13 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => (
   {
-    receiveCategoryIdx: categoryIdx => {
-      dispatch(receiveCategoryIdx(categoryIdx));
-    },
-    receiveDifficultyIdx: difficultyIdx => {
-      dispatch(receiveDifficultyIdx(difficultyIdx));
-    }
+    receiveCategoryIdx: categoryIdx => (
+      dispatch(receiveCategoryIdx(categoryIdx))
+    ),
+    receiveDifficultyIdx: difficultyIdx => (
+      dispatch(receiveDifficultyIdx(difficultyIdx))
+    ),
+    setDefaultSettings: () => dispatch(setDefaultSettings()),
   }
 );
 
