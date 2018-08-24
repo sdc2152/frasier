@@ -1,14 +1,16 @@
 import {combineReducers} from "redux";
-import QuestionReducer from "./questionReducer";
-import SettingsReducer from "./settingsReducer";
+import GameReducer from "./gameReducer";
 import QuestionFormReducer from "./questionFormReducer";
 import QuestionListReducer from "./questionListReducer";
+import QuestionReducer from "./questionReducer";
+import SettingsReducer from "./settingsReducer";
 
 const rootReducer = combineReducers({
-  settings: SettingsReducer,
+  game: GameReducer,
   question: QuestionReducer,
   questionForm: QuestionFormReducer,
-  questionList: QuestionListReducer
+  questionList: QuestionListReducer,
+  settings: SettingsReducer,
 });
 
 export default rootReducer;

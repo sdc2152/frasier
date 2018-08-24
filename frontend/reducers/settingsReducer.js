@@ -19,8 +19,7 @@ function settings(state=defaultState, action) {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_SETTINGS:
-      newState = Object.assign({}, state, action.settings);
-      return newState;
+      return Object.assign({}, state, action.settings);
     case RECEIVE_CATEGORY_IDX:
       return Object.assign({}, state, {categoryIdx: action.categoryIdx});
     case RECEIVE_DIFFICULTY_IDX:

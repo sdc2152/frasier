@@ -1,7 +1,5 @@
 import React from "react";
 
-import {Container} from "reactstrap";
-
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -9,9 +7,9 @@ class Home extends React.Component {
 
   render() {
     return (
-      <Container>
+      <div className="container">
         <h1>Home</h1>
-      </Container>
+      </div>
     );
   }
 }

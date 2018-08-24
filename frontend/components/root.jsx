@@ -2,6 +2,7 @@ import React from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 import NavBar from "./navBar.jsx";
+import Game from "./game/gameContainer";
 import Home from "./home.jsx";
 import RandomQuestion from "./randomQuestion";
 import QuestionForm from "./questionForm";
@@ -17,6 +18,7 @@ const root = () =>  {
           <NavBar />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/game" component={Game} />
             <Route path="/questions/submit" component={QuestionForm}/>
             <Route path="/questions/list" component={QuestionList}/>
             <Route path="/questions" component={RandomQuestion}/>

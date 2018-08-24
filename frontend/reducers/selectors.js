@@ -36,3 +36,6 @@ export const getQueryParams = state => {
   }
   return queryParams;
 };
+
+// TODO: check if i need to use Boolean here
+export const gameOver = ({game}) => game.gameOver;
