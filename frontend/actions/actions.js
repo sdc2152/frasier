@@ -3,6 +3,9 @@ import {extractCookie} from "../utils";
 
 export const RECEIVE_QUESTION = "RECEIVE_QUESTION";
 
+export const CORRECT_ANSWER = "true_answers";
+export const INCORRECT_ANSWER = "false_answers";
+
 export function receiveQuestion(question) {
   return {
     type: RECEIVE_QUESTION,

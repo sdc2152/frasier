@@ -6,17 +6,21 @@ import {
   updateAndFetchRandom
 } from "../../actions/actions";
 
+import {receiveAnswer} from "../../actions/gameActions";
+
 const mapStateToProps = state => (
   {
-    question: state.question
+    question: state.question,
+    gameStart: state.game.gameStart
   }
 );
 
 const mapDispatchToProps = dispatch => (
   {
-    fetchRandomQuestion: () => {dispatch(fetchRandomQuestion());},
-    fetchInitialQuestion: () => {dispatch(fetchInitialQuestion());},
-    updateAndFetchRandom: data => {dispatch(updateAndFetchRandom(data));}
+    fetchRandomQuestion: () => dispatch(fetchRandomQuestion()),
+    fetchInitialQuestion: () => dispatch(fetchInitialQuestion()),
+    updateAndFetchRandom: data => dispatch(updateAndFetchRandom(data)),
+    receiveAnswer: answer => dispatch(receiveAnswer(answer)),
   }
 );
 

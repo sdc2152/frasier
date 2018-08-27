@@ -1,12 +1,14 @@
 import {
   ADD_NEW_PLAYER,
   RECEIVE_ANSWER,
-  CORRECT_ANSWER
+  START_NEW_GAME
 } from "../actions/gameActions";
+
+import {CORRECT_ANSWER} from "../actions/actions";
 
 const defaultState = {
   players: [],
-  winningPoints: 20,
+  winningPoints: 10,
   gameStart: false,
   gameOver: false
 };
@@ -27,6 +29,8 @@ function player(state=defaultPlayerState, action) {
         return Object.assign({}, state, {points: state.points + 1});
       }
       return state;
+    case START_NEW_GAME:
+      return Object.assign({}, state, {points: 0});
     default:
       return state;
   }
@@ -39,6 +43,8 @@ function players(state=[], action) {
       return [...state, {name: action.name, points: 0}];
     case RECEIVE_ANSWER:
       return [...state.slice(1), player(getCurrentPlayer(state), action)];
+    case START_NEW_GAME:
+      return state.map(p => player(p, action));
     default:
       return state;
   }
@@ -54,17 +60,20 @@ function game(state=defaultState, action) {
         players: players(state.players, action)
       });
     case RECEIVE_ANSWER: {
-      const newState = Object.assign(
-        {}, state, players(state.players, action)
-      );
-      // check if the player that just went (player at end of array)
-      // has a winning number of points. if so set gameOver to true
-      // TODO: check if i need to convert to Number here
-      if (getLastPlayer(state.players).points === newState.winningPoints) {
-        return Object.assign({}, newState, {gameOver: true});
+      let stateChange = {players: players(state.players, action)}
+      if (getLastPlayer(stateChange.players).points === state.winningPoints) {
+        stateChange.gameOver = true;
       }
-      return newState;
+      return Object.assign({}, state, stateChange);
     }
+    case START_NEW_GAME:
+      if (state.gameOver) {
+        return Object.assign({}, state, {
+          players: players(state.players, action),
+          gameOver: false
+        });
+      }
+      return Object.assign({}, state, {gameStart: true});
     default:
       return state;
   }

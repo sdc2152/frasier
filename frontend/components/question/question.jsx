@@ -1,4 +1,8 @@
 import React from "react";
+import {
+  CORRECT_ANSWER,
+  INCORRECT_ANSWER
+} from "../../actions/actions";
 
 class Question extends React.Component {
   constructor(props) {
@@ -22,6 +26,9 @@ class Question extends React.Component {
   answerQuestion(e) {
     this.setState({collapse: false});
     this.props.updateAndFetchRandom({"answer": e.target.value});
+    if (this.props.gameStart) {
+      this.props.receiveAnswer(e.target.value);
+    }
   }
 
   skipQuestion() {
@@ -83,13 +90,13 @@ class Question extends React.Component {
             <div className="row">
               <div className="col">
                 <button type="button" className="btn btn-success"
-                  value="true_answers" onClick={this.answerQuestion}>
+                  value={CORRECT_ANSWER} onClick={this.answerQuestion}>
                   Correct
                 </button>
               </div>
               <div className="col">
                 <button type="button" className="btn btn-danger"
-                  value="false_answers" onClick={this.answerQuestion}>
+                  value={INCORRECT_ANSWER} onClick={this.answerQuestion}>
                   Incorrect
                 </button>
               </div>

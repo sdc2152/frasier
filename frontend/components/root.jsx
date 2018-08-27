@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 import NavBar from "./navBar.jsx";
-import Game from "./game/gameContainer";
+import Game from "./game/game";
 import Home from "./home.jsx";
 import RandomQuestion from "./randomQuestion";
 import QuestionForm from "./questionForm";

@@ -41,7 +41,7 @@ class QuestionRandom(generics.RetrieveAPIView):
 def increment_answer(request, pk):
     answer = request.data.get("answer", None)
     if answer:
-        question = Question.objects.approved_questions.filter(pk=pk)
+        question = Question.objects.approved_questions().filter(pk=pk)
         question.update(total_answers=F("total_answers") + 1)
         if answer == "true_answers":
             question.update(true_answers=F("true_answers") + 1)
