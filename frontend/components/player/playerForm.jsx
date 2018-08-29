@@ -1,4 +1,7 @@
 import React from "react";
+import {connect} from "react-redux";
+
+import {addNewPlayer} from "../../actions/gameActions";
 
 class PlayerForm extends React.Component {
   constructor(props) {
@@ -36,10 +39,18 @@ class PlayerForm extends React.Component {
             </input>
           </div>
         </div>
-        <input value="add player" type="submit"/>
+        <input
+          className="btn btn-primary btn-lg"
+          value="add player"
+          type="submit"
+        />
       </form>
     );
   }
 }
 
-export default PlayerForm;
+const mapDispatchToProps = dispatch => (
+  {addNewPlayer: name => dispatch(addNewPlayer(name))}
+);
+
+export default connect(null, mapDispatchToProps)(PlayerForm);

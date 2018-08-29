@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 
-import PlayerContainer from "../player/playerContainer";
+import PlayerForm from "./playerForm";
 
 const customStyles = {
   content : {
@@ -14,20 +14,15 @@ const customStyles = {
   }
 };
 
-Modal.setAppElement("#react-root");
-
-class GameModal extends React.Component {
+class PlayerAddModal extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      modalIsOpen: !props.gameStart,
-      showPlayerError: false
+      modalIsOpen: false,
+      playersToAdd: []
     };
-
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.startGame = this.startGame.bind(this);
   }
 
   openModal() {
@@ -38,31 +33,23 @@ class GameModal extends React.Component {
     this.setState({modalIsOpen: false});
   }
 
-  startGame() {
-    this.props.startNewGame();
-    this.closeModal();
-  }
-
   render() {
     return (
       <div>
+        <button onClick={this.openModal}>Add Players</button>
         <Modal
           isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
           style={customStyles}
-          contentLabel="Game Setup"
+          contentLabel="Add Players"
         >
-          <h2>Game Setup</h2>
-          <a hidden={!this.state.showPlayerError}>test</a>
-          <button onClick={this.startGame}>start game</button>
-          <div>
-          </div>
-          <PlayerContainer />
+          <PlayerForm />
+          <button className="btn btn-primary btn-lg" onClick={this.closeModal}>
+            done
+          </button>
         </Modal>
       </div>
     );
   }
 }
 
-export default GameModal;
+export default PlayerAddModal;

@@ -1,21 +1,33 @@
 import React from "react";
 
-const PlayerList = ({players}) => {
-  const playersList = players.map((c, i) => (
-    <li className="row" value={i} key={i}>
-      <div className="col-lg-12">
-        name: {c.name}
-      </div>
-      <div className="col-lg-12">
-        points: {c.points}
-      </div>
-    </li>
+import {connect} from "react-redux";
+
+import PlayerListItem from "./playerListItem";
+import {removePlayer} from "../../actions/gameActions";
+
+const PlayerList = ({players, removePlayer}) => {
+  const playersList = players.map((player, i) => (
+    <PlayerListItem
+      key={i} index={i} player={player} removePlayer={removePlayer}
+    />
   ));
   return (
-    <ul className="container">
+    <ul className="scroll-list container">
       {playersList}
     </ul>
   );
 };
 
-export default PlayerList;
+const mapStateToProps = state => (
+  {
+    players: state.game.players,
+  }
+);
+
+const mapDispatchToProps = dispatch => (
+  {
+    removePlayer: index => dispatch(removePlayer(index)),
+  }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerList);

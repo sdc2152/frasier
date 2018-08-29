@@ -1,5 +1,6 @@
 import {
   ADD_NEW_PLAYER,
+  REMOVE_PLAYER,
   RECEIVE_ANSWER,
   START_NEW_GAME
 } from "../actions/gameActions";
@@ -41,6 +42,8 @@ function players(state=[], action) {
   switch (action.type) {
     case ADD_NEW_PLAYER:
       return [...state, {name: action.name, points: 0}];
+    case REMOVE_PLAYER:
+      return state.filter((e, i) => i !== action.index);
     case RECEIVE_ANSWER:
       return [...state.slice(1), player(getCurrentPlayer(state), action)];
     case START_NEW_GAME:
@@ -59,8 +62,12 @@ function game(state=defaultState, action) {
       return Object.assign({}, state, {
         players: players(state.players, action)
       });
+    case REMOVE_PLAYER:
+      return Object.assign({}, state, {
+        players: players(state.players, action)
+      });
     case RECEIVE_ANSWER: {
-      let stateChange = {players: players(state.players, action)}
+      let stateChange = {players: players(state.players, action)};
       if (getLastPlayer(stateChange.players).points === state.winningPoints) {
         stateChange.gameOver = true;
       }

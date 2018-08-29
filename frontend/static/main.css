@@ -9,3 +9,10 @@
 .Hard {
   color: red;
 }
+
+.scroll-list {
+  height: 300px;
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

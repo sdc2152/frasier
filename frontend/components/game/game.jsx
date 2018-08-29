@@ -13,23 +13,25 @@ import {
 } from "../../reducers/selectors";
 
 
-import GameModal from "./gameModal";
+import GameStartModal from "./gameStartModal";
 import QuestionContainer from "../question/questionContainer";
-import PlayerContainer from "../player/playerContainer";
+import PlayerAddModal from "../player/playerAddModal";
+import PlayerList from "../player/playerList";
 
 const Game = ({gameStart, gameOver, startNewGame}) => (
     <div>
-      <GameModal
+      <GameStartModal
         gameStart={gameStart}
         gameOver={gameOver}
         startNewGame={startNewGame}
       >
-      </GameModal>
+      </GameStartModal>
       <div className="container">
         <h1>Game</h1>
         <div className="row">
           <div className="col">
-            <PlayerContainer />
+            <PlayerAddModal />
+            <PlayerList />
           </div>
           <div className="col">
             <QuestionContainer />
