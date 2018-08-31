@@ -8,14 +8,14 @@ const handleRemoveClick = (index, func) => {
 };
 
 const PlayerListItem = ({index, player, removePlayer}) => (
-    <li className="row">
+    <li className="row mb-2">
       <div className="col-sm-8">
         {player.name}
         <br/>
         points: {player.points}
       </div>
 
-      <div className="col-sm-4">
+      <div className="col-sm-4 pt-1">
         <button
           className="btn btn-danger btn-sm"
           onClick={handleRemoveClick(index, removePlayer)}>

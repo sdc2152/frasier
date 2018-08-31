@@ -7,9 +7,11 @@ import {
 
 import {CORRECT_ANSWER} from "../actions/actions";
 
+const DEFAULT_WINNING_POINTS = 10;
+
 const defaultState = {
   players: [],
-  winningPoints: 10,
+  winningPoints: DEFAULT_WINNING_POINTS,
   gameStart: false,
   gameOver: false
 };
@@ -67,6 +69,9 @@ function game(state=defaultState, action) {
         players: players(state.players, action)
       });
     case RECEIVE_ANSWER: {
+      if (state.players.length === 0) {
+        return state;
+      }
       let stateChange = {players: players(state.players, action)};
       if (getLastPlayer(stateChange.players).points === state.winningPoints) {
         stateChange.gameOver = true;

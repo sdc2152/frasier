@@ -4,6 +4,7 @@ import SettingsContainer from "./settings/settingsContainer";
 
 const randomQuestion = () => (
   <div className="container">
+    <h1>Questions</h1>
     <div className="row">
       <div className="col-sm-12 col-md-7 order-md-first order-sm-last">
         <QuestionContainer/>

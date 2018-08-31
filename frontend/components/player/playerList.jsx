@@ -8,11 +8,14 @@ import {removePlayer} from "../../actions/gameActions";
 const PlayerList = ({players, removePlayer}) => {
   const playersList = players.map((player, i) => (
     <PlayerListItem
-      key={i} index={i} player={player} removePlayer={removePlayer}
+      key={i}
+      index={i}
+      player={player}
+      removePlayer={removePlayer}
     />
   ));
   return (
-    <ul className="scroll-list container">
+    <ul className="container">
       {playersList}
     </ul>
   );

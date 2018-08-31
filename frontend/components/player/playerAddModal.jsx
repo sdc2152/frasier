@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-modal";
 
 import PlayerForm from "./playerForm";
+import PlayerList from "./playerList";
 
 const customStyles = {
   content : {
@@ -36,14 +37,23 @@ class PlayerAddModal extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.openModal}>Add Players</button>
+        <button
+          className="btn btn-primary btn-lg btn-block"
+          onClick={this.openModal}>
+          Add Players
+        </button>
         <Modal
           isOpen={this.state.modalIsOpen}
           style={customStyles}
           contentLabel="Add Players"
         >
+          <div className="border scroll-list scroll-list-sm">
+            <PlayerList />
+          </div>
           <PlayerForm />
-          <button className="btn btn-primary btn-lg" onClick={this.closeModal}>
+          <button
+            className="btn btn-secondary btn-lg btn-block mt-1"
+            onClick={this.closeModal}>
             done
           </button>
         </Modal>

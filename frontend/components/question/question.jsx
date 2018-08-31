@@ -41,66 +41,67 @@ class Question extends React.Component {
     const {collapse} = this.state;
     return (
       <div>
-        <br/>
         <div className="row">
           <div className="col">
             <img className="center-block"
               src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
           </div>
         </div>
-        <br/>
 
-        <div className="row">
+        <div className="row mt-3">
           <div className="col">
             <h4>Category: {question.category}</h4>
           </div>
           <div className="col">
-            <h4 className="float-right">Difficulty: {question.difficulty}</h4>
+            <h4 className="float-right">
+              Difficulty: <span className={question.difficulty}>
+                {question.difficulty}
+              </span>
+            </h4>
           </div>
         </div>
-        <div className="row">
+        <div className="row question-body">
           <div className="col">
-            <p>{question.body}</p>
+            <span className="align-middle">{question.body}</span>
           </div>
         </div>
-
-        <br/>
-
-        <div className="row">
-          <div className="col">
-            <button type="button" className="btn btn-primary btn-lg"
-              onClick={this.toggle}>
-              Show Answer
-            </button>
-          </div>
-          <div className="col">
-            <button type="button"
-              className="btn btn-primary btn-lg float-right"
-              onClick={this.skipQuestion}>
-                Skip Question
-            </button>
-          </div>
-        </div>
-
-        <br/>
 
         <div className={collapse ? "show" : "collapse"}>
           <div className="card card-body">
             <p className="card-text">{question.answer}</p>
             <div className="row">
-              <div className="col">
-                <button type="button" className="btn btn-success"
+              <div className="col-sm-12 col-lg-4">
+                <button type="button" className="btn btn-success btn-block"
                   value={CORRECT_ANSWER} onClick={this.answerQuestion}>
                   Correct
                 </button>
               </div>
-              <div className="col">
-                <button type="button" className="btn btn-danger"
+              <div className="col-sm-12 col-lg-4 mt-sm-1 mt-lg-0">
+                <button type="button" className="btn btn-danger btn-block"
                   value={INCORRECT_ANSWER} onClick={this.answerQuestion}>
                   Incorrect
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-sm-12 col-lg-6">
+            <button
+              type="button"
+              className="btn btn-primary btn-lg btn-block"
+              onClick={this.toggle}>
+              Show Answer
+            </button>
+          </div>
+          <div className="col-sm-12 col-lg-6 mt-lg-0 mt-sm-1">
+            <button
+              type="button"
+              className="btn btn-secondary btn-lg btn-block"
+              onClick={this.skipQuestion}>
+                Skip Question
+            </button>
           </div>
         </div>
 

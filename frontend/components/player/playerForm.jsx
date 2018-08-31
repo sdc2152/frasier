@@ -40,7 +40,7 @@ class PlayerForm extends React.Component {
           </div>
         </div>
         <input
-          className="btn btn-primary btn-lg"
+          className="btn btn-primary btn-lg btn-block"
           value="add player"
           type="submit"
         />

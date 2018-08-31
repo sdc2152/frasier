@@ -35,6 +35,7 @@ class QuestionList extends React.Component {
     );
     return (
       <div className="container">
+        <h1>Questions List</h1>
         <div className="input-group mb-3">
           <div className="input-group-prepend">
             <label className="input-group-text">
@@ -48,7 +49,6 @@ class QuestionList extends React.Component {
             {sortByList}
           </select>
         </div>
-        <h1>Questions List</h1>
         <ul className="container">
           {questions}
         </ul>

@@ -1,7 +1,8 @@
 import React from "react";
 import Modal from "react-modal";
 
-import PlayerContainer from "../player/playerContainer";
+import PlayerForm from "../player/playerForm";
+import PlayerList from "../player/playerList";
 
 const customStyles = {
   content : {
@@ -10,7 +11,7 @@ const customStyles = {
     right                 : "auto",
     bottom                : "auto",
     marginRight           : "-50%",
-    transform             : "translate(-50%, -50%)"
+    transform             : "translate(-50%, -50%)",
   }
 };
 
@@ -32,13 +33,13 @@ class GameStartModal extends React.Component {
           style={customStyles}
           contentLabel="New Game"
         >
-          <div className="row">
-            <h2>New Game</h2>
+          <h2>New Game</h2>
+          <div className="border scroll-list scroll-list-sm">
+            <PlayerList />
           </div>
-          <PlayerContainer />
-
+          <PlayerForm />
           <button
-            className="btn btn-primary btn-lg btn-block"
+            className="btn btn-secondary btn-lg btn-block mt-1"
             onClick={this.startGame}>
             start game
           </button>

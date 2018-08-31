@@ -39,3 +39,4 @@ export const getQueryParams = state => {
 
 export const getGameOver = ({game}) => game.gameOver;
 export const getGameStart = ({game}) => game.gameStart;
+export const getWinningPoints = ({game}) => game.winningPoints;
