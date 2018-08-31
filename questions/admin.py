@@ -17,7 +17,7 @@ make_unapproved.short_description = "Unapprove selected questions"
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     date_hierarchy = "created"
-    list_display = ("body", "category", "difficulty",)
+    list_display = ("body", "answer", "category", "difficulty",)
     list_filter = ("approved",)
     ordering = ("-created",)
     actions = (make_approved, make_unapproved,)
