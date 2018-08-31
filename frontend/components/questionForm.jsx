@@ -4,16 +4,25 @@ import {
   CATEGORIES,
   DIFFICULTIES,
   postQuestion,
-  receiveFormFieldChange
+  receiveFormFieldChange,
+  receiveDifficulty,
 } from "../actions/questionFormActions";
 
 const handleChange = (e) => {
   let change = {};
-  change[e.target.title] = e.target.value;
+  const title = e.target.title;
+  if (title === "category" || title === "difficulty") {
+    change[title] = Number(e.target.value);
+  }
+  else {
+    change[title] = e.target.value;
+  }
   return change;
 };
 
-const QuestionForm = ({postQuestion, receiveFormFieldChange, questionForm}) => {
+const QuestionForm = ({
+  postQuestion, receiveFormFieldChange, questionForm, receiveDifficulty
+}) => {
   const {body, answer, category, difficulty} = questionForm;
   return (
     <div className="container">
@@ -92,10 +101,9 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => (
   {
-    postQuestion: () => {dispatch(postQuestion());},
-    receiveFormFieldChange: change => {
-      dispatch(receiveFormFieldChange(change));
-    },
+    postQuestion: () => dispatch(postQuestion()),
+    receiveFormFieldChange: change => dispatch(receiveFormFieldChange(change)),
+    receiveDifficulty: difficulty => dispatch(receiveDifficulty(difficulty)),
   }
 );
 
