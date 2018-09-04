@@ -25,3 +25,76 @@
 .question-body {
   min-height: 100px;
 }
+
+.md-img {
+  min-height: 200px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+/*frasier images*/
+.Frasier-Easy {
+  background-image: url("./img/frasier_easy.jpg");
+}
+.Frasier-Medium {
+  background-image: url("./img/frasier_medium.jpg");
+}
+.Frasier-Hard {
+  background-image: url("./img/frasier_hard.jpg");
+}
+
+/*martin images*/
+.Martin-Easy {
+  background-image: url("./img/martin_easy.jpg");
+}
+.Martin-Medium {
+  background-image: url("./img/martin_medium.jpg");
+}
+.Martin-Hard {
+  background-image: url("./img/martin_hard.jpg");
+}
+
+/*daphne images*/
+.Daphne-Easy {
+  background-image: url("./img/daphne_easy.jpg");
+}
+.Daphne-Medium {
+  background-image: url("./img/daphne_medium.jpg");
+}
+.Daphne-Hard {
+  background-image: url("./img/daphne_hard.jpg");
+}
+
+/*niles images*/
+.Niles-Easy {
+  background-image: url("./img/niles_easy.jpg");
+}
+.Niles-Medium {
+  background-image: url("./img/niles_medium.jpg");
+}
+.Niles-Hard {
+  background-image: url("./img/niles_hard.jpg");
+}
+
+/*roz images*/
+.Roz-Easy {
+  background-image: url("./img/roz_easy.jpg");
+}
+.Roz-Medium {
+  background-image: url("./img/roz_medium.jpg");
+}
+.Roz-Hard {
+  background-image: url("./img/roz_hard.jpg");
+}
+
+/*eddie images*/
+.Eddie-Easy {
+  background-image: url("./img/eddie_easy.jpg");
+}
+.Eddie-Medium {
+  background-image: url("./img/eddie_medium.jpg");
+}
+.Eddie-Hard {
+  background-image: url("./img/eddie_hard.jpg");
+}

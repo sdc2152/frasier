@@ -26,7 +26,6 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        //test: [/\.jsx?$/, /\.js?$/],
         exclude: /node_modules/,
         loader: "babel-loader",
         options: {
@@ -41,7 +40,13 @@ module.exports = {
           {loader: "style-loader"},
           {loader: "css-loader"}
         ]
-      }
+      },
+      {
+        test: /\.(png|jpg)$/,
+        use: [
+          "file-loader",
+        ]
+      },
     ]
   },
   resolve: {

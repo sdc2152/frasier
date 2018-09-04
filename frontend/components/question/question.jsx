@@ -37,38 +37,37 @@ class Question extends React.Component {
   }
 
   render() {
-    const {question} = this.props;
+    const {difficulty, category, body, answer} = this.props.question;
     const {collapse} = this.state;
     return (
       <div>
         <div className="row">
           <div className="col">
-            <img className="center-block"
-              src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" />
+            <div className={`${category}-${difficulty} md-img`}/>
           </div>
         </div>
 
         <div className="row mt-3">
           <div className="col">
-            <h4>Category: {question.category}</h4>
+            <h4>Category: {category}</h4>
           </div>
           <div className="col">
             <h4 className="float-right">
-              Difficulty: <span className={question.difficulty}>
-                {question.difficulty}
+              Difficulty: <span className={difficulty}>
+                {difficulty}
               </span>
             </h4>
           </div>
         </div>
         <div className="row question-body">
           <div className="col">
-            <span className="align-middle">{question.body}</span>
+            <span className="align-middle">{body}</span>
           </div>
         </div>
 
         <div className={collapse ? "show" : "collapse"}>
           <div className="card card-body">
-            <p className="card-text">{question.answer}</p>
+            <p className="card-text">{answer}</p>
             <div className="row">
               <div className="col-sm-12 col-lg-4">
                 <button type="button" className="btn btn-success btn-block"
