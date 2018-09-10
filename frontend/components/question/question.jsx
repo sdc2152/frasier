@@ -1,15 +1,16 @@
 import React from "react";
 import {
   CORRECT_ANSWER,
-  INCORRECT_ANSWER
-} from "../../actions/actions";
+  INCORRECT_ANSWER,
+  RECEIVE_GAME_ANSWER
+} from "../../actions/questionActions";
 
 class Question extends React.Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.skipQuestion = this.skipQuestion.bind(this);
-    this.answerQuestion = this.answerQuestion.bind(this);
+    this.handleAnswer = this.handleAnswer.bind(this);
     this.state = {
       collapse: false
     };
@@ -23,15 +24,15 @@ class Question extends React.Component {
     this.setState({collapse: !this.state.collapse});
   }
 
-  answerQuestion(e) {
+  handleAnswer(e) {
+    e.preventDefault();
     this.setState({collapse: false});
-    this.props.updateAndFetchRandom({"answer": e.target.value});
-    if (this.props.gameStart) {
-      this.props.receiveAnswer(e.target.value);
-    }
+    this.props.receiveAnswer(e.target.value, this.props.scope);
+    this.props.answerQuestion(e.target.value);
   }
 
-  skipQuestion() {
+  skipQuestion(e) {
+    e.preventDefault();
     this.setState({collapse: false});
     this.props.fetchRandomQuestion();
   }
@@ -71,13 +72,13 @@ class Question extends React.Component {
             <div className="row">
               <div className="col-sm-12 col-lg-4">
                 <button type="button" className="btn btn-success btn-block"
-                  value={CORRECT_ANSWER} onClick={this.answerQuestion}>
+                  value={CORRECT_ANSWER} onClick={this.handleAnswer}>
                   Correct
                 </button>
               </div>
               <div className="col-sm-12 col-lg-4 mt-sm-1 mt-lg-0">
                 <button type="button" className="btn btn-danger btn-block"
-                  value={INCORRECT_ANSWER} onClick={this.answerQuestion}>
+                  value={INCORRECT_ANSWER} onClick={this.handleAnswer}>
                   Incorrect
                 </button>
               </div>

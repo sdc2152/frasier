@@ -1,19 +1,12 @@
 export const SORT_BY = [
-  "Alphabetical",
-  "Reverse Alpabetical",
+  "Easy to Hard",
+  "Hard to Easy",
   "Most Recent",
   "Least Recent",
-  "Easy to Hard",
-  "Hard to Easy"
 ];
 
-export const ALPHABETICAL_IDX = 0;
-export const REVERSE_ALPABETICAL_IDX = 1;
-export const MOST_RECENT_IDX = 2;
-export const LEAST_RECENT_IDX = 3;
-export const EASIEST_IDX = 4;
-export const HARDEST_IDX = 5;
-export const DEFAULT_SORT_IDX = ALPHABETICAL_IDX;
+export const EASY_TO_HARD_IDX = 0;
+export const DEFAULT_SORT_IDX = EASY_TO_HARD_IDX;
 
 export const RECEIVE_QUESTION_LIST = "RECEIVE_QUESTION_LIST";
 export const RECEIVE_SORT_IDX = "RECEIVE_SORT_IDX";

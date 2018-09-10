@@ -1,19 +1,22 @@
 import {
   ADD_NEW_PLAYER,
   REMOVE_PLAYER,
-  RECEIVE_ANSWER,
-  START_NEW_GAME
+  START_NEW_GAME,
+  RECEIVE_GAME_ANSWER,
+  RESET_GAME,
+  TOGGLE_QUESTION_MODAL_DISPLAY,
 } from "../actions/gameActions";
 
 import {CORRECT_ANSWER} from "../actions/actions";
 
-const DEFAULT_WINNING_POINTS = 10;
+const DEFAULT_WINNING_POINTS = 1;
 
 const defaultState = {
   players: [],
   winningPoints: DEFAULT_WINNING_POINTS,
   gameStart: false,
-  gameOver: false
+  gameOver: false,
+  questionModalDisplay: false
 };
 
 const defaultPlayerState = {
@@ -27,12 +30,12 @@ const getLastPlayer = players => players[players.length-1];
 function player(state=defaultPlayerState, action) {
   Object.freeze(state);
   switch (action.type) {
-    case RECEIVE_ANSWER:
+    case RECEIVE_GAME_ANSWER:
       if (action.answer === CORRECT_ANSWER) {
         return Object.assign({}, state, {points: state.points + 1});
       }
       return state;
-    case START_NEW_GAME:
+    case RESET_GAME:
       return Object.assign({}, state, {points: 0});
     default:
       return state;
@@ -46,9 +49,11 @@ function players(state=[], action) {
       return [...state, {name: action.name, points: 0}];
     case REMOVE_PLAYER:
       return state.filter((e, i) => i !== action.index);
-    case RECEIVE_ANSWER:
+    case RECEIVE_GAME_ANSWER:
       return [...state.slice(1), player(getCurrentPlayer(state), action)];
     case START_NEW_GAME:
+      return [];
+    case RESET_GAME:
       return state.map(p => player(p, action));
     default:
       return state;
@@ -68,13 +73,14 @@ function game(state=defaultState, action) {
       return Object.assign({}, state, {
         players: players(state.players, action)
       });
-    case RECEIVE_ANSWER: {
-      if (state.players.length === 0) {
-        return state;
-      }
-      let stateChange = {players: players(state.players, action)};
-      if (getLastPlayer(stateChange.players).points === state.winningPoints) {
-        stateChange.gameOver = true;
+    case RECEIVE_GAME_ANSWER: {
+      // TODO: change this to something better
+      let stateChange = {questionModalDisplay: false};
+      if (state.players.length != 0) {
+        stateChange.players = players(state.players, action);
+        if (getLastPlayer(stateChange.players).points >= state.winningPoints) {
+          stateChange.gameOver = true;
+        }
       }
       return Object.assign({}, state, stateChange);
     }
@@ -82,10 +88,20 @@ function game(state=defaultState, action) {
       if (state.gameOver) {
         return Object.assign({}, state, {
           players: players(state.players, action),
-          gameOver: false
+          gameOver: false,
+          gameStart: false,
         });
       }
       return Object.assign({}, state, {gameStart: true});
+    case RESET_GAME:
+      return Object.assign({}, state, {
+        players: players(state.players, action),
+        gameOver: false,
+      });
+    case TOGGLE_QUESTION_MODAL_DISPLAY:
+      return Object.assign({}, state, {
+        questionModalDisplay: !state.questionModalDisplay
+      });
     default:
       return state;
   }

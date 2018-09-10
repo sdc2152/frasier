@@ -3,8 +3,8 @@ import {connect} from "react-redux";
 import {
   fetchRandomQuestion,
   fetchInitialQuestion,
-  updateAndFetchRandom
-} from "../../actions/actions";
+  answerQuestion
+} from "../../actions/questionActions";
 
 import {receiveAnswer} from "../../actions/gameActions";
 
@@ -19,8 +19,8 @@ const mapDispatchToProps = dispatch => (
   {
     fetchRandomQuestion: () => dispatch(fetchRandomQuestion()),
     fetchInitialQuestion: () => dispatch(fetchInitialQuestion()),
-    updateAndFetchRandom: data => dispatch(updateAndFetchRandom(data)),
-    receiveAnswer: answer => dispatch(receiveAnswer(answer)),
+    answerQuestion: data => dispatch(answerQuestion(data)),
+    receiveAnswer: (answer, type) => dispatch(receiveAnswer(answer, type)),
   }
 );
 

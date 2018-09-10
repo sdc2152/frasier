@@ -43,17 +43,13 @@ class QuestionQuerySet(models.QuerySet):
         """
         sort_by = int(params.get("sort", 0))
         if sort_by == 1:
-            return self.order_by("-body")
-        elif sort_by == 2:
-            return self.order_by("created")
-        elif sort_by == 3:
-            return self.order_by("-created")
-        elif sort_by == 4:
-            return self.order_by("difficulty")
-        elif sort_by == 5:
             return self.order_by("-difficulty")
+        elif sort_by == 2:
+            return self.order_by("-created")
+        elif sort_by == 3:
+            return self.order_by("created")
         else:
-            return self.order_by("body")
+            return self.order_by("difficulty")
 
     def approved_questions(self):
         return self.filter(approved=True)
