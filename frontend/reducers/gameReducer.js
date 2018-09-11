@@ -1,6 +1,8 @@
 import {
   ADD_NEW_PLAYER,
   REMOVE_PLAYER,
+  GO_TO_NEXT_PLAYER,
+  GO_TO_PREV_PLAYER,
   START_NEW_GAME,
   RECEIVE_GAME_ANSWER,
   RESET_GAME,
@@ -19,22 +21,23 @@ const defaultState = {
   questionModalDisplay: false
 };
 
-const defaultPlayerState = {
-  name: "",
-  points: 0
-};
-
 const getCurrentPlayer = players => players[0];
+
 const getLastPlayer = players => players[players.length-1];
+
+const goToNextPlayer = players => [...players.slice(1), players[0]];
+
+const goToPrevPlayer = players => (
+  [players[players.length-1], ...players.slice(0, players.length-1)]
+);
 
 function player(state=defaultPlayerState, action) {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_GAME_ANSWER:
-      if (action.answer === CORRECT_ANSWER) {
-        return Object.assign({}, state, {points: state.points + 1});
-      }
-      return state;
+      return action.answer === CORRECT_ANSWER ?
+        Object.assign({}, state, {points: state.points + 1}) :
+        state;
     case RESET_GAME:
       return Object.assign({}, state, {points: 0});
     default:
@@ -49,6 +52,10 @@ function players(state=[], action) {
       return [...state, {name: action.name, points: 0}];
     case REMOVE_PLAYER:
       return state.filter((e, i) => i !== action.index);
+    case GO_TO_NEXT_PLAYER:
+      return goToNextPlayer(state);
+    case GO_TO_PREV_PLAYER:
+      return goToPrevPlayer(state);
     case RECEIVE_GAME_ANSWER:
       return [...state.slice(1), player(getCurrentPlayer(state), action)];
     case START_NEW_GAME:
@@ -65,11 +72,10 @@ function game(state=defaultState, action) {
   // the players has taken a turn
   Object.freeze(state);
   switch (action.type) {
-    case ADD_NEW_PLAYER:
-      return Object.assign({}, state, {
-        players: players(state.players, action)
-      });
+    case GO_TO_NEXT_PLAYER:
+    case GO_TO_PREV_PLAYER:
     case REMOVE_PLAYER:
+    case ADD_NEW_PLAYER:
       return Object.assign({}, state, {
         players: players(state.players, action)
       });

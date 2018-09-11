@@ -1,46 +1,37 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 
-import {
-  Collapse,
-  Nav,
-  Navbar,
-  NavbarToggler,
-} from "reactstrap";
-
-class NavBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <Navbar color="faded" light>
-          <NavbarToggler color="faded" onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/game">Game</NavLink>
-              <NavLink to="/questions">Questions</NavLink>
-              <NavLink to="/questions/list">Questions List</NavLink>
-              <NavLink to="/questions/submit">Submit Question</NavLink>
-            </Nav>
-          </Collapse>
-        </Navbar>
+const NavBar = () => (
+  <div className="mt-3">
+    <div className="container">
+      <div className="row justify-content-center">
+        <NavLink className="col-3 nav-item sm-img bg-skyline" to="/"/>
       </div>
-    );
-  }
-}
+    </div>
+
+    <div className="nav justify-content-center my-2">
+      <div className="nav-item">
+        <NavLink className="nav-link" to="/game">
+          Game
+        </NavLink>
+      </div>
+      <div className="nav-item">
+        <NavLink exact={true} className="nav-link" to="/questions">
+          Questions
+        </NavLink>
+      </div>
+      <div className="nav-item">
+        <NavLink className="nav-link" to="/questions/list">
+          Questions List
+        </NavLink>
+      </div>
+      <div className="nav-item">
+        <NavLink className="nav-link" to="/questions/submit">
+          Submit Question
+        </NavLink>
+      </div>
+    </div>
+  </div>
+);
 
 export default NavBar;

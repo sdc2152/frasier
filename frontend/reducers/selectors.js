@@ -38,11 +38,19 @@ export const getQueryParams = state => {
 };
 
 export const getGameOver = ({game}) => game.gameOver;
+
 export const getGameStart = ({game}) => game.gameStart;
+
 export const getWinningPoints = ({game}) => game.winningPoints;
+
 export const getQuestionModalDisplay = ({game}) => game.questionModalDisplay;
+
 export const getWinningPlayer = ({game}) => {
   if (game.gameOver && game.players.length > 0) {
     return game.players.find(e => e.points >= game.winningPoints);
   }
 };
+
+export const getPlayers = ({game}) => game.players;
+
+export const getCurrentPlayer = ({game}) => game.players[0];

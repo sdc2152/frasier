@@ -19,8 +19,10 @@ class QuestionListItem extends React.Component {
     const {difficulty, body, answer} = this.props.question;
     return (
       <div className="container">
-        <div className="row">
-          <div className="col">{body}</div>
+        <div className="row mt-2">
+          <div className="col">
+            {body}
+          </div>
           <div className={`col ${DIFFICULTIES[difficulty]}`}>
             {DIFFICULTIES[difficulty]}
           </div>

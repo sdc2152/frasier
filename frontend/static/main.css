@@ -26,11 +26,42 @@
   min-height: 100px;
 }
 
+.nav-link {
+  color: #A9A9A9;
+  transition: width 0.2s, height 0.2s;
+}
+
+.nav-link:hover {
+  color: black;
+  transform: scale(1.04);
+}
+
+.active {
+  color: black
+}
+
 .md-img {
-  min-height: 200px;
+  min-height: 300px;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
+}
+
+.sm-img {
+  min-height: 100px;
+  min-width: 300px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+.bg-skyline {
+  background-image: url("./img/frasier_skyline.png");
+  transition: all 0.2s;
+}
+
+.bg-skyline:hover {
+  transform: scale(1.02);
 }
 
 /*frasier images*/
