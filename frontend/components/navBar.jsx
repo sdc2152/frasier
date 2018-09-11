@@ -5,7 +5,9 @@ const NavBar = () => (
   <div className="mt-3">
     <div className="container">
       <div className="row justify-content-center">
-        <NavLink className="col-3 nav-item sm-img bg-skyline" to="/"/>
+        <NavLink
+          exact={true} 
+          className="col-3 nav-item sm-img bg-skyline" to="/"/>
       </div>
     </div>
 

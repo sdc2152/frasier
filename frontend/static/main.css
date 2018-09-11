@@ -37,7 +37,8 @@
 }
 
 .active {
-  color: black
+  color: black;
+  transform: scale(1.04);
 }
 
 .md-img {
@@ -61,7 +62,7 @@
 }
 
 .bg-skyline:hover {
-  transform: scale(1.02);
+  transform: scale(1.04);
 }
 
 /*frasier images*/
