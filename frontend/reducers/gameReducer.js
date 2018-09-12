@@ -25,10 +25,14 @@ const getCurrentPlayer = players => players[0];
 
 const getLastPlayer = players => players[players.length-1];
 
-const goToNextPlayer = players => [...players.slice(1), players[0]];
+const goToNextPlayer = players => (
+  players.length > 0 ? [...players.slice(1), players[0]] : []
+);
 
 const goToPrevPlayer = players => (
-  [players[players.length-1], ...players.slice(0, players.length-1)]
+  players.length > 0 ?
+  [players[players.length-1], ...players.slice(0, players.length-1)] :
+  []
 );
 
 function player(state=defaultPlayerState, action) {

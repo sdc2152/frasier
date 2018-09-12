@@ -60,7 +60,7 @@ const Game = ({
           <div className="row">
             <div className="col">
               <PlayerAddModal />
-              <h6>Current Player: {currentPlayer.name}</h6>
+              <h6>Current Player: {currentPlayer && currentPlayer.name}</h6>
               <button onClick={goToPrevPlayer}>previous</button>
               <button onClick={goToNextPlayer}>next</button>
             </div>
