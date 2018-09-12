@@ -5,6 +5,7 @@ import {
   ALL_DIFFICULTIES_IDX
 } from "../actions/settingsActions";
 
+// settings
 export const getCategoryName = ({settings}) => {
   const {categories, categoryIdx} = settings;
   return categories[categoryIdx];
@@ -15,6 +16,7 @@ export const getDifficultyName = ({settings}) => {
   return difficultyIdx;
 };
 
+// question
 export const getQuestion = ({question}) => question;
 
 export const getQueryParams = state => {
@@ -37,6 +39,7 @@ export const getQueryParams = state => {
   return queryParams;
 };
 
+// game selectors
 export const getGameOver = ({game}) => game.gameOver;
 
 export const getGameStart = ({game}) => game.gameStart;
@@ -54,3 +57,7 @@ export const getWinningPlayer = ({game}) => {
 export const getPlayers = ({game}) => game.players;
 
 export const getCurrentPlayer = ({game}) => game.players[0];
+
+// questionlist selectors
+export const getSortByIdx = ({questionList}) => questionList.sortByIdx;
+export const getQuestionList = ({questionList}) => questionList.list;

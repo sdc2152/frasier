@@ -20,14 +20,14 @@ class QuestionListItem extends React.Component {
     return (
       <div className="container">
         <div className="row mt-2">
-          <div className="col">
+          <div className="col-sm-6">
             {body}
           </div>
-          <div className={`col ${DIFFICULTIES[difficulty]}`}>
+          <div className={`col-sm-3 ${DIFFICULTIES[difficulty]}`}>
             {DIFFICULTIES[difficulty]}
           </div>
 
-            <div className="col">
+            <div className="col-sm-3">
               <button type="button" className="btn btn-primary btn-sm"
                 onClick={this.toggle}>
                 Show Answer

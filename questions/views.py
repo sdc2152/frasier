@@ -16,6 +16,9 @@ class QuestionList(generics.ListAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
+    def get_queryset(self):
+        return Question.objects.approved_questions()
+
     def list(self, request):
         queryset = self.get_queryset().handle_sort_by(request.GET)
         serializer = QuestionSerializer(queryset, many=True)

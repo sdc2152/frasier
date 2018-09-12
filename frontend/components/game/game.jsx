@@ -56,7 +56,13 @@ const Game = ({
           resetGame={resetGame}
         />
         <div className="container">
-          <h1>Game</h1>
+
+          <div className="row text-center">
+            <div className="col">
+              <h1>Game</h1>
+            </div>
+          </div>
+
           <div className="row">
             <div className="col">
               <PlayerAddModal />

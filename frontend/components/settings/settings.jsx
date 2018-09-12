@@ -44,8 +44,6 @@ class Settings extends React.Component {
     ));
     return (
       <div>
-        <br/>
-        <h3>Settings</h3>
         <div className="input-group mb-3">
           <div className="input-group-prepend">
             <label className="input-group-text">

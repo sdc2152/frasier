@@ -5,9 +5,13 @@ import PlayerList from "../player/playerList";
 
 const GameSetup = ({startNewGame}) => (
   <div className="container">
-    <div className="row">
-      <h2>New Game</h2>
+
+    <div className="row text-center">
+      <div className="col">
+        <h1>Game</h1>
+      </div>
     </div>
+
     <div className="row">
 
       <div className="col">

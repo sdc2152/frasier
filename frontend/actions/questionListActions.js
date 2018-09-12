@@ -18,9 +18,10 @@ export function receiveQuestionList(questionList) {
   };
 }
 
-export function fetchQuestionList() {
+export function fetchQuestionList(sortByIdx) {
   return dispatch => {
-    return fetch("/api/questions/list/")
+    const url = `/api/questions/list/?sort=${sortByIdx}`;
+    return fetch(url)
       .then(response => response.json())
       .then(json => {dispatch(receiveQuestionList(json));})
       .catch(ex => {console.log("parsing failed", ex);});
@@ -28,13 +29,9 @@ export function fetchQuestionList() {
 }
 
 export function receiveSortByIdx(sortByIdx) {
-  return dispatch => {
-    dispatch({type: RECEIVE_SORT_IDX, sortByIdx: sortByIdx});
-    const url = `/api/questions/list/?sort=${sortByIdx}`;
-    return fetch(url)
-      .then(response => response.json())
-      .then(json => {dispatch(receiveQuestionList(json));})
-      .catch(ex => {console.log("parsing failed", ex);});
+  return {
+    type: RECEIVE_SORT_IDX,
+    sortByIdx: sortByIdx,
   };
 }
 

@@ -65,6 +65,54 @@
   transform: scale(1.04);
 }
 
+.full-height {
+  height: 100%;
+}
+
+.frasier-pano {
+  background-image:
+  linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url("./img/frasier_pano.png");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: contain;
+}
+.frasier-apartment {
+  background-image:
+  linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url("./img/frasier_apartment.png");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
+}
+
+.frasier-niles-coffee {
+  background-image:
+  linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url("./img/frasier_niles_coffee.png");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
+}
+
+.frasier-booth {
+  background-image:
+  linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ), url("./img/skyline.png");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
+}
+
+
 /*frasier images*/
 .Frasier-Easy {
   background-image: url("./img/frasier_easy.jpg");
