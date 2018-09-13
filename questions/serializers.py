@@ -29,14 +29,14 @@ class QuestionSubmissionSerializer(QuestionSerializer):
     def validate_answer(self, value):
         if value.strip() == "":
             raise serializers.ValidationError(
-                "Question body cannot be an empty string."
+                "Question answer cannot be blank."
             )
         return value
 
     def validate_category(self, value):
         if value.strip() == "":
             raise serializers.ValidationError(
-                "Question category cannot be an empty string."
+                "Question category cannot be blank."
             )
         if value not in [el[0] for el in Question.CATEGORIES]:
             raise serializers.ValidationError(

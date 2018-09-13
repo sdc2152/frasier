@@ -3,6 +3,7 @@ import {getPostDataFromQuestionForm} from "../reducers/questionFormSelectors";
 
 export const RECEIVE_FORM_FIELD_CHANGE = "RECEIVE_FORM_FIELD_CHANGE";
 export const RESET_FORM_FIELD = "RESET_FORM_FIELD";
+export const RECEIVE_ERRORS = "RECEIVE_ERRORS";
 export const DEFAULT_CATEGORY_IDX = 0;
 export const DEFAULT_DIFFICULTY_IDX = 0;
 
@@ -28,6 +29,13 @@ export function receiveFormFieldChange(change) {
   };
 }
 
+export function receiveErrors(errors) {
+  return {
+    type: RECEIVE_ERRORS,
+    errors: errors,
+  };
+}
+
 export function resetFormField() {
   return {
     type: RESET_FORM_FIELD
@@ -38,7 +46,7 @@ export function postQuestion() {
   return (dispatch, getState) => {
     const data = getPostDataFromQuestionForm(getState());
     const csrfToken = extractCookie("csrftoken");
-    fetch("/api/questions/submit/", {
+    return fetch("/api/questions/submit/", {
       credentials: "include",
       mode: "same-origin",
       body: JSON.stringify(data),
@@ -48,8 +56,8 @@ export function postQuestion() {
         "Content-Type": "application/json",
         "X-CSRFToken": csrfToken,
       }
-    }).then(() => {
-      dispatch(resetFormField());
-    });
+    })
+      .then(res => res.ok ? dispatch(resetFormField()) : res.json()
+        .then(json => dispatch(receiveErrors(json))));
   };
 }

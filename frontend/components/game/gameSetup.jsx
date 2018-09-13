@@ -14,7 +14,13 @@ const GameSetup = ({startNewGame}) => (
 
     <div className="row">
 
-      <div className="col">
+      <div className="col-md-6 col-sm-12">
+        <h4>Instructions</h4>
+        <p>
+          The goal of the game is to be the first one to however many points.
+          When it is your turn draw a card and try to guess the answer.
+          Add some players and press start game to get started
+        </p>
       </div>
 
       <div className="col">

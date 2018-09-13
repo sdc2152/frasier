@@ -69,6 +69,10 @@
   height: 100%;
 }
 
+.frasier-chess {
+  background-image: url("./img/frasier_chess.jpg");
+}
+
 .frasier-pano {
   background-image:
   linear-gradient(

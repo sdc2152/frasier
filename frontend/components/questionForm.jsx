@@ -1,11 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
+
+import {getErrors} from "../reducers/selectors";
+
 import {
   CATEGORIES,
   DIFFICULTIES,
   postQuestion,
   receiveFormFieldChange,
-  receiveDifficulty,
 } from "../actions/questionFormActions";
 
 const handleChange = (e) => {
@@ -20,15 +22,19 @@ const handleChange = (e) => {
   return change;
 };
 
+const getErrorListItems = arr =>  arr && arr.map((e, i) => (
+  <li className="text-danger" key={i} >{e}</li>
+  ));
+
 const QuestionForm = ({
   postQuestion,
   receiveFormFieldChange,
   questionForm,
-  // TODO: can prolly remove this (not using seperate actions for different cha
-  // nges)
-  receiveDifficulty
+  errors,
 }) => {
   const {body, answer, category, difficulty} = questionForm;
+  const bodyErrors = getErrorListItems(errors.body);
+  const answerErrors = getErrorListItems(errors.answer);
   return (
     <div className="container">
 
@@ -53,6 +59,9 @@ const QuestionForm = ({
                   value={body}
                   onChange={e => receiveFormFieldChange(handleChange(e))}>
                 </textarea>
+                <ul className={bodyErrors || "hidden"}>
+                  {bodyErrors}
+                </ul>
               </div>
             </div>
 
@@ -67,6 +76,9 @@ const QuestionForm = ({
                   id="inputAnswer" onChange={
                   e => receiveFormFieldChange(handleChange(e))}>
                 </textarea>
+                <ul className={answerErrors || "hidden"}>
+                  {answerErrors}
+                </ul>
               </div>
             </div>
 
@@ -109,7 +121,8 @@ const QuestionForm = ({
 
 const mapStateToProps = state => (
   {
-    questionForm: state.questionForm
+    questionForm: state.questionForm,
+    errors: getErrors(state),
   }
 );
 
@@ -117,7 +130,6 @@ const mapDispatchToProps = dispatch => (
   {
     postQuestion: () => dispatch(postQuestion()),
     receiveFormFieldChange: change => dispatch(receiveFormFieldChange(change)),
-    receiveDifficulty: difficulty => dispatch(receiveDifficulty(difficulty)),
   }
 );
 

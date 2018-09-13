@@ -38,7 +38,7 @@ const Home = () => (
         <div className="bg-light p-5 frasier-niles-coffee full-height">
           <div className="">
             <h2 className="display-4 font-weight-bold">
-              Question List
+              List
             </h2>
             <p className="lead">
               If you would like to review all the questions, check out a
@@ -56,10 +56,10 @@ const Home = () => (
       className="row text-center bg-light my-3 frasier-booth">
       <div className="col-md-5 p-5 mx-auto">
         <h2 className="display-4 font-weight-bold">
-          Subimt Questions
+          Submit Questions
         </h2>
         <p className="lead font-weight-normal">
-          Is there a question that you would like included in the Question database? Submit a question for review here.
+          Is there a question that you would like included in the question database? Submit a question for review here.
         </p>
         <Link to="/questions/submit" className="btn btn-outline-light">
           submit a question

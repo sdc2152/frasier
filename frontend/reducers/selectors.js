@@ -16,6 +16,20 @@ export const getDifficultyName = ({settings}) => {
   return difficultyIdx;
 };
 
+// game selectors
+export const getGameOver = ({game}) => game.gameOver;
+export const getGameStart = ({game}) => game.gameStart;
+export const getWinningPoints = ({game}) => game.winningPoints;
+export const getQuestionModalDisplay = ({game}) => game.questionModalDisplay;
+export const getPlayers = ({game}) => game.players;
+export const getCurrentPlayer = ({game}) => game.players[0];
+
+export const getWinningPlayer = ({game}) => {
+  if (game.gameOver && game.players.length > 0) {
+    return game.players.find(e => e.points >= game.winningPoints);
+  }
+};
+
 // question
 export const getQuestion = ({question}) => question;
 
@@ -23,8 +37,8 @@ export const getQueryParams = state => {
   const category = getCategoryName(state);
   const difficulty = getDifficultyName(state);
   const exclude_id = getQuestion(state).id;
-  const queryParams = {};
 
+  const queryParams = {};
   // only include query params if they provide relevant filtering info
   // example: catergory = all; difficulty = all; question.id = undefined
   if (exclude_id !== undefined) {
@@ -39,25 +53,8 @@ export const getQueryParams = state => {
   return queryParams;
 };
 
-// game selectors
-export const getGameOver = ({game}) => game.gameOver;
-
-export const getGameStart = ({game}) => game.gameStart;
-
-export const getWinningPoints = ({game}) => game.winningPoints;
-
-export const getQuestionModalDisplay = ({game}) => game.questionModalDisplay;
-
-export const getWinningPlayer = ({game}) => {
-  if (game.gameOver && game.players.length > 0) {
-    return game.players.find(e => e.points >= game.winningPoints);
-  }
-};
-
-export const getPlayers = ({game}) => game.players;
-
-export const getCurrentPlayer = ({game}) => game.players[0];
-
+// question form
+export const getErrors = ({questionForm}) => questionForm.errors;
 // questionlist selectors
 export const getSortByIdx = ({questionList}) => questionList.sortByIdx;
 export const getQuestionList = ({questionList}) => questionList.list;

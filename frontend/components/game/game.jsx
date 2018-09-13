@@ -64,26 +64,49 @@ const Game = ({
           </div>
 
           <div className="row">
+
             <div className="col">
               <PlayerAddModal />
-              <h6>Current Player: {currentPlayer && currentPlayer.name}</h6>
-              <button onClick={goToPrevPlayer}>previous</button>
-              <button onClick={goToNextPlayer}>next</button>
             </div>
 
             <div className="col">
               <button
-                onClick={toggleQuestionModalDisplay}
                 className="btn btn-lg btn-primary btn-block"
+                onClick={toggleQuestionModalDisplay}
               >
                 Draw Question
               </button>
-
               <QuestionModal isOpen={questionModalDisplay}>
                 <QuestionContainer scope={RECEIVE_GAME_ANSWER} />
               </QuestionModal>
             </div>
           </div>
+
+          <div className="row text-center">
+
+            <div className="col-sm-5 p-3 mx-auto">
+              <h4>
+                Current Player: {currentPlayer && currentPlayer.name}
+              </h4>
+              <div className="row">
+                <div className="col-sm-6 px-1">
+                  <button className="btn btn-block" onClick={goToPrevPlayer}>
+                    previous
+                  </button>
+                </div>
+                <div className="col-sm-6 px-1">
+                  <button className="btn btn-block" onClick={goToNextPlayer}>
+                    next
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row mt-4">
+            <div className="col frasier-chess md-img"></div>
+          </div>
+
         </div>
       </div>
     );
