@@ -14,14 +14,17 @@ const randomQuestion = () => (
     </div>
 
     <div className="row">
-      <div className="col-sm-12 col-md-7 order-md-first order-sm-last">
-        <QuestionContainer scope={RECEIVE_GAME_ANSWER} />
-      </div>
-
-      <div className="col-sm-12 col-md-5 order-md-last order-sm-first">
+      <div className="col">
         <SettingsContainer/>
       </div>
     </div>
+
+    <div className="row">
+      <div className="col">
+        <QuestionContainer scope={RECEIVE_GAME_ANSWER} />
+      </div>
+    </div>
+
 
   </div>
 );

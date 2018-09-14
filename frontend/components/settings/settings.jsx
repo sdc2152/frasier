@@ -36,15 +36,18 @@ class Settings extends React.Component {
       categoryIdx, categories,
       difficulties, difficultyIdx
     } = this.props.settings;
+
     const categoryList = categories.map((c, i) => (
       <option value={i} key={i}>{c}</option>
     ));
+
     const difficultyList = difficulties.map((c, i) => (
       <option value={i} key={i}>{c}</option>
     ));
+
     return (
-      <div>
-        <div className="input-group mb-3">
+      <div className="row">
+        <div className="col col-lg-6 col-xs-12 input-group mb-3">
           <div className="input-group-prepend">
             <label className="input-group-text">
               Category
@@ -58,7 +61,7 @@ class Settings extends React.Component {
           </select>
         </div>
 
-        <div className="input-group mb-3">
+        <div className="col col-lg-6 col-xs-12 input-group mb-3">
           <div className="input-group-prepend">
             <label className="input-group-text">
               Difficulty
