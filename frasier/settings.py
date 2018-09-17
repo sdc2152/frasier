@@ -17,7 +17,7 @@ SECRET_KEY = os.environ.get(
 DEBUG = bool(os.environ.get("DJANGO_DEBUG", True))
 
 ALLOWED_HOSTS = [
-    "enigmatic-escarpment-88378.herokuapp.com/",
+    "enigmatic-escarpment-88378.herokuapp.com",
 ]
 
 
