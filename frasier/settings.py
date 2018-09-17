@@ -18,6 +18,7 @@ DEBUG = bool(os.environ.get("DJANGO_DEBUG", True))
 
 ALLOWED_HOSTS = [
     "enigmatic-escarpment-88378.herokuapp.com",
+    '127.0.0.1',
 ]
 
 
