@@ -47,7 +47,7 @@ class Settings extends React.Component {
 
     return (
       <div className="row">
-        <div className="col col-lg-6 col-xs-12 input-group mb-3">
+        <div className="col-12 col-lg-6 input-group mb-3">
           <div className="input-group-prepend">
             <label className="input-group-text">
               Category
@@ -61,7 +61,7 @@ class Settings extends React.Component {
           </select>
         </div>
 
-        <div className="col col-lg-6 col-xs-12 input-group mb-3">
+        <div className="col-12 col-lg-6 input-group mb-3">
           <div className="input-group-prepend">
             <label className="input-group-text">
               Difficulty

@@ -2,7 +2,6 @@ import React from "react";
 import {
   CORRECT_ANSWER,
   INCORRECT_ANSWER,
-  RECEIVE_GAME_ANSWER
 } from "../../actions/questionActions";
 
 class Question extends React.Component {

@@ -3,7 +3,6 @@ const webpack = require("webpack");
 const BundleTracker = require("webpack-bundle-tracker");
 
 module.exports = {
-  // TODO: make a production webpack
   mode: "development",
   context: __dirname,
   entry: [
