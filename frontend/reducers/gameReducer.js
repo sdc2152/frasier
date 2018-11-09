@@ -5,13 +5,13 @@ import {
   GO_TO_PREV_PLAYER,
   START_NEW_GAME,
   RECEIVE_GAME_ANSWER,
+  RECEIVE_WINNING_POINTS,
   RESET_GAME,
   TOGGLE_QUESTION_MODAL_DISPLAY,
+  DEFAULT_WINNING_POINTS,
 } from "../actions/gameActions";
 
 import {CORRECT_ANSWER} from "../actions/actions";
-
-const DEFAULT_WINNING_POINTS = 1;
 
 const defaultState = {
   players: [],
@@ -94,6 +94,8 @@ function game(state=defaultState, action) {
       }
       return Object.assign({}, state, stateChange);
     }
+    case RECEIVE_WINNING_POINTS:
+      return Object.assign({}, state, {winningPoints: action.winningPoints});
     case START_NEW_GAME:
       if (state.gameOver) {
         return Object.assign({}, state, {
@@ -102,7 +104,7 @@ function game(state=defaultState, action) {
           gameStart: false,
         });
       }
-      return Object.assign({}, state, {gameStart: true});
+      return Object.assign({}, state, {gameStart: !state.gameStart});
     case RESET_GAME:
       return Object.assign({}, state, {
         players: players(state.players, action),

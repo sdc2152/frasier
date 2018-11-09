@@ -7,10 +7,14 @@ export const START_NEW_GAME = "START_NEW_GAME";
 export const RECEIVE_GAME_ANSWER = "RECEIVE_GAME_ANSWER";
 export const RECEIVE_RANDOM_QUESTION_ANSWER = "RECEIVE_RANDOM_QUESTION_ANSWER";
 
+export const RECEIVE_WINNING_POINTS = "RECEIVE_WINNING_POINTS";
+
 export const RESET_GAME = "RESET_GAME";
 export const GET_WINNING_PLAYER = "GET_WINNING_PLAYER";
 export const TOGGLE_QUESTION_MODAL_DISPLAY = "TOGGLE_QUESTION_MODAL_DISPLAY";
 
+export const DEFAULT_WINNING_POINTS = 10;
+export const MAX_POINTS = 20;
 
 export function addNewPlayer(name) {
   return {
@@ -42,6 +46,13 @@ export function receiveAnswer(answer, type) {
   return {
     type: type,
     answer: answer
+  };
+}
+
+export function receiveWinningPoints(winningPoints) {
+  return {
+    type: RECEIVE_WINNING_POINTS,
+    winningPoints: winningPoints,
   };
 }
 

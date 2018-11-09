@@ -8,6 +8,7 @@ import {
   goToPrevPlayer,
   resetGame,
   toggleQuestionModalDisplay,
+  receiveWinningPoints,
 } from "../../actions/gameActions";
 
 import {RECEIVE_GAME_ANSWER} from "../../actions/gameActions";
@@ -25,10 +26,8 @@ import GameEndModal from "./gameEndModal";
 import GameSetup from "./gameSetup";
 import PlayerAddModal from "../player/playerAddModal";
 import QuestionContainer from "../question/questionContainer";
-// TODO: maybe dont need this
 import QuestionModal from "../question/questionModal";
 
-// TODO: add player list???
 const Game = ({
   currentPlayer,
   gameStart,
@@ -39,11 +38,17 @@ const Game = ({
   startNewGame,
   resetGame,
   questionModalDisplay,
+  winningPoints,
+  receiveWinningPoints,
   toggleQuestionModalDisplay,
 }) => {
   if (!gameStart) {
     return (
-      <GameSetup startNewGame={startNewGame} />
+      <GameSetup
+        winningPoints={winningPoints}
+        receiveWinningPoints={receiveWinningPoints}
+        startNewGame={startNewGame}
+      />
     );
   }
   else {
@@ -60,18 +65,23 @@ const Game = ({
           <div className="row text-center">
             <div className="col">
               <h1>Game</h1>
+              <p>Winning Points: {winningPoints}</p>
             </div>
           </div>
 
-          <div className="row">
-
-            <div className="col">
-              <PlayerAddModal />
+          <div className="row text-center">
+            <div className="col-lg-4">
+              <button
+                className="btn btn-lg btn-danger btn-block"
+                onClick={startNewGame}
+              >
+                Restart Game
+              </button>
             </div>
 
-            <div className="col">
+            <div className="col-lg-4 mt-2 mt-lg-0 mr-auto">
               <button
-                className="btn btn-lg btn-primary btn-block"
+                className="btn btn-lg btn-success btn-block"
                 onClick={toggleQuestionModalDisplay}
               >
                 Draw Question
@@ -80,15 +90,37 @@ const Game = ({
                 <QuestionContainer scope={RECEIVE_GAME_ANSWER} />
               </QuestionModal>
             </div>
+
+            <div className="col-lg-4 mt-2 mt-lg-0 ml-auto">
+              <PlayerAddModal />
+            </div>
+
           </div>
+
 
           <div className="row text-center">
 
             <div className="col-sm-5 p-3 mx-auto">
-              <h4>
-                Current Player: {currentPlayer && currentPlayer.name}
-              </h4>
               <div className="row">
+                <div className="col text-right">
+                  Current Player:
+                </div>
+                <div className="col text-left">
+                  <h5>
+                    {currentPlayer && currentPlayer.name}
+                  </h5>
+                </div>
+              </div>
+              <div className="row mt-0">
+                <div className="col text-right">
+                  Points:
+                </div>
+                <div className="col text-left">
+                  {currentPlayer && currentPlayer.points}
+                </div>
+              </div>
+
+              <div className="row mt-2">
                 <div className="col-sm-6 px-1">
                   <button className="btn btn-block" onClick={goToPrevPlayer}>
                     previous
@@ -120,7 +152,6 @@ const mapStateToProps = state => (
     winningPlayer: getWinningPlayer(state),
     questionModalDisplay: getQuestionModalDisplay(state),
     currentPlayer: getCurrentPlayer(state),
-    //TODO: i havent used this yet maybe remove
     winningPoints: getWinningPoints(state),
   }
 );
@@ -128,14 +159,15 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
   {
     receiveAnswer: answer => dispatch(receiveAnswer(answer)),
-    // TODO: check if needed
-    //addNewPlayer: name => dispatch(addNewPlayer(name)),
     goToNextPlayer: () => dispatch(goToNextPlayer()),
     goToPrevPlayer: () => dispatch(goToPrevPlayer()),
     setWinningPoints: points => dispatch(setWinningPoints(points)),
     startNewGame: () => dispatch(startNewGame()),
     resetGame: () => dispatch(resetGame()),
     toggleQuestionModalDisplay: () => dispatch(toggleQuestionModalDisplay()),
+    receiveWinningPoints: winningPoints => (
+      dispatch(receiveWinningPoints(winningPoints))
+    ),
   }
 );
 

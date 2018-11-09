@@ -40,7 +40,7 @@ class PlayerAddModal extends React.Component {
         <button
           className="btn btn-primary btn-lg btn-block"
           onClick={this.openModal}>
-          Add Players
+          Add/Remove Players
         </button>
         <Modal
           isOpen={this.state.modalIsOpen}

@@ -2,8 +2,9 @@ import React from "react";
 
 import PlayerForm from "../player/playerForm";
 import PlayerList from "../player/playerList";
+import WinningPoints from "./winningPoints";
 
-const GameSetup = ({startNewGame}) => (
+const GameSetup = ({winningPoints, receiveWinningPoints, startNewGame}) => (
   <div className="container">
 
     <div className="row text-center">
@@ -21,7 +22,12 @@ const GameSetup = ({startNewGame}) => (
           When it is your turn draw a card and try to guess the answer.
           Add some players and press start game to get started
         </p>
+        <WinningPoints
+          winningPoints={winningPoints}
+          receiveWinningPoints={receiveWinningPoints}
+        />
       </div>
+
 
       <div className="col">
         <div className="border scroll-list scroll-list-sm">
