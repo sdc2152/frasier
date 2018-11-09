@@ -29,7 +29,10 @@ module.exports = {
         loader: "babel-loader",
         options: {
           cacheDirectory: true,
-          plugins: ["react-hot-loader/babel"],
+          plugins: [
+            "react-hot-loader/babel",
+            "dynamic-import-webpack",
+          ],
           presets: ["env", "react"]
         },
       },

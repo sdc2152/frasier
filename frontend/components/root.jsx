@@ -1,9 +1,9 @@
-import React from "react";
+import React, {lazy} from "react";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 import NavBar from "./navBar.jsx";
 import Game from "./game/game";
-import Home from "./home.jsx";
+import Home from "./home";
 import RandomQuestion from "./randomQuestion";
 import QuestionForm from "./questionForm";
 import QuestionList from "./questionList";
